@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>以动画的方式，快速直观地查看 Git 文件变动历史</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="以动画的方式，快速直观地查看 Git 文件变动历史, git, git, renzhifan" />
+    <meta name="description" content="以动画的方式，快速直观地查看 Git 文件变动历史, git, git, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/git/%E4%BB%A5%E5%8A%A8%E7%94%BB%E7%9A%84%E6%96%B9%E5%BC%8F-%E5%BF%AB%E9%80%9F%E7%9B%B4%E8%A7%82%E5%9C%B0%E6%9F%A5%E7%9C%8B-Git-%E6%96%87%E4%BB%B6%E5%8F%98%E5%8A%A8%E5%8E%86%E5%8F%B2/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>以动画的方式，快速直观地查看 Git 文件变动历史</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Dec 25, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#git"><span class="octicon octicon-list-unordered"></span>&nbsp;git</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#git"><span class="octicon octicon-tag"></span>&nbsp;git</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#1说明" id="markdown-toc-1说明">1.说明</a></li>
+  <li><a href="#2效果如下" id="markdown-toc-2效果如下">2.效果如下：</a></li>
+  <li><a href="#3亲自体验" id="markdown-toc-3亲自体验">3.亲自体验</a></li>
+  <li><a href="#4其他方式" id="markdown-toc-4其他方式">4.其他方式</a></li>
+  <li><a href="#5参考文章" id="markdown-toc-5参考文章">5.参考文章</a></li>
+</ul>
+
+<blockquote>
+  <p><strong><em>以动画的方式，快速直观地查看 Git 文件变动历史</em></strong></p>
+</blockquote>
+
+<hr />
+<h2 id="1说明">1.说明</h2>
+<p><a href="https://github.com/pomber/git-history">pomber/git-history</a>是一款能够以动画形式快速、直观地展现 Git 仓库内文件变动历史的 Web 工具。</p>
+
+<h2 id="2效果如下">2.效果如下：</h2>
+
+<p><img src="/static/img/git.gif" alt="动图效果" /></p>
+
+<h2 id="3亲自体验">3.亲自体验</h2>
+
+<p><a href="https://github.githistory.xyz/babel/babel/blob/master/packages/babel-core/test/browserify.js">试试看</a></p>
+
+<h2 id="4其他方式">4.其他方式</h2>
+<blockquote>
+  <p>相比于主流的 Blame / Annotation，这种方式可以更加 迅速直观 地查看历史提交对于文件的变动影响。
+该作者除了将仓库开源外，还将项目托管在了 https://githistory.xyz/。我们可以打开 GitHub 上的任意文件，然后将域名 github.com 替换为 github.githistory.xyz 即可使用。
+似乎还是有些麻烦，域名比较长，若是短一些就更棒了；而且直接在地址栏修改域名通常没有补全，比较痛苦。
+该项目给出另一个方案：<a href="https://chrome.google.com/webstore/detail/git-history-browser-exten/laghnmifffncfonaoffcndocllegejnf">Chrome Extension</a> 在此，效果如下：</p>
+</blockquote>
+
+<p><img src="/static/img/git_2.png" alt="效果" /></p>
+
+<h2 id="5参考文章">5.参考文章</h2>
+
+<p><a href="https://learnku.com/articles/23986">参考文章</a></p>
+
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#git"><span class="octicon octicon-tag"></span>&nbsp;git</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ubuntu18.04 搭建 PHP 环境</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="Ubuntu18.04 搭建 PHP 环境, lnmp, ubuntu,php,lnmp,composer,nginx,mysql, renzhifan" />
+    <meta name="description" content="Ubuntu18.04 搭建 PHP 环境, lnmp, ubuntu,php,lnmp,composer,nginx,mysql, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/lnmp/Ubuntu18.04-%E6%90%AD%E5%BB%BA-PHP-%E7%8E%AF%E5%A2%83/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>Ubuntu18.04 搭建 PHP 环境</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Dec 26, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#lnmp"><span class="octicon octicon-list-unordered"></span>&nbsp;lnmp</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#ubuntu"><span class="octicon octicon-tag"></span>&nbsp;ubuntu</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#php"><span class="octicon octicon-tag"></span>&nbsp;php</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#lnmp"><span class="octicon octicon-tag"></span>&nbsp;lnmp</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#composer"><span class="octicon octicon-tag"></span>&nbsp;composer</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#nginx"><span class="octicon octicon-tag"></span>&nbsp;nginx</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#mysql"><span class="octicon octicon-tag"></span>&nbsp;mysql</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#1初始化系统" id="markdown-toc-1初始化系统">1.初始化系统</a>    <ul>
+      <li><a href="#实验环境" id="markdown-toc-实验环境">实验环境</a></li>
+      <li><a href="#更新软件源" id="markdown-toc-更新软件源">更新软件源</a></li>
+      <li><a href="#本地化配置" id="markdown-toc-本地化配置">本地化配置</a></li>
+    </ul>
+  </li>
+  <li><a href="#2安装-nginx" id="markdown-toc-2安装-nginx">2.安装 Nginx</a>    <ul>
+      <li><a href="#通过apt安装-nginx" id="markdown-toc-通过apt安装-nginx">通过apt安装 Nginx</a></li>
+      <li><a href="#管理-nginx-服务" id="markdown-toc-管理-nginx-服务">管理 Nginx 服务</a></li>
+      <li><a href="#确认-nginx-正常运行" id="markdown-toc-确认-nginx-正常运行">确认 Nginx 正常运行</a></li>
+    </ul>
+  </li>
+  <li><a href="#3安装-php-fpm" id="markdown-toc-3安装-php-fpm">3.安装 PHP-FPM</a>    <ul>
+      <li><a href="#配置第三方软件源" id="markdown-toc-配置第三方软件源">配置第三方软件源</a></li>
+      <li><a href="#安装-php" id="markdown-toc-安装-php">安装 PHP</a></li>
+      <li><a href="#管理-php-fpm-服务" id="markdown-toc-管理-php-fpm-服务">管理 PHP-FPM 服务</a></li>
+      <li><a href="#确认-php-fpm-正常运行" id="markdown-toc-确认-php-fpm-正常运行">确认 PHP-FPM 正常运行</a></li>
+    </ul>
+  </li>
+  <li><a href="#4composer" id="markdown-toc-4composer">4.Composer</a>    <ul>
+      <li><a href="#安装-composer" id="markdown-toc-安装-composer">安装 Composer</a>        <ul>
+          <li><a href="#第一种方式" id="markdown-toc-第一种方式">第一种方式</a></li>
+          <li><a href="#第二种方式" id="markdown-toc-第二种方式">第二种方式</a></li>
+          <li><a href="#第三种方式" id="markdown-toc-第三种方式">第三种方式</a></li>
+        </ul>
+      </li>
+      <li><a href="#配置-packagist-中国镜像" id="markdown-toc-配置-packagist-中国镜像">配置 Packagist 中国镜像</a></li>
+    </ul>
+  </li>
+  <li><a href="#5部署应用代码" id="markdown-toc-5部署应用代码">5.部署应用代码</a>    <ul>
+      <li><a href="#创建一个新项目" id="markdown-toc-创建一个新项目">创建一个新项目</a></li>
+      <li><a href="#配置文件所有者" id="markdown-toc-配置文件所有者">配置文件所有者</a></li>
+    </ul>
+  </li>
+  <li><a href="#6配置-nginx-站点" id="markdown-toc-6配置-nginx-站点">6.配置 Nginx 站点</a>    <ul>
+      <li><a href="#nginx-站点配置" id="markdown-toc-nginx-站点配置">Nginx 站点配置</a></li>
+      <li><a href="#fastcgi-服务地址为-ip端口时的配置" id="markdown-toc-fastcgi-服务地址为-ip端口时的配置">FastCGI 服务地址为 IP:端口时的配置</a>        <ul>
+          <li><a href="#首先修改php的配置文件" id="markdown-toc-首先修改php的配置文件">首先修改php的配置文件</a></li>
+          <li><a href="#配置一" id="markdown-toc-配置一">配置一</a></li>
+          <li><a href="#配置二" id="markdown-toc-配置二">配置二</a></li>
+          <li><a href="#注意" id="markdown-toc-注意">注意</a></li>
+        </ul>
+      </li>
+      <li><a href="#重载-nginx" id="markdown-toc-重载-nginx">重载 Nginx</a></li>
+      <li><a href="#最终效果" id="markdown-toc-最终效果">最终效果</a></li>
+    </ul>
+  </li>
+  <li><a href="#7安装mysql" id="markdown-toc-7安装mysql">7.安装MYSQL</a>    <ul>
+      <li><a href="#通过apt安装mysql" id="markdown-toc-通过apt安装mysql">通过apt安装mysql</a></li>
+      <li><a href="#管理-mysql-服务" id="markdown-toc-管理-mysql-服务">管理 Mysql 服务</a></li>
+      <li><a href="#测试" id="markdown-toc-测试">测试</a></li>
+      <li><a href="#mysql-创建新用户" id="markdown-toc-mysql-创建新用户">mysql 创建新用户</a>        <ul>
+          <li><a href="#创建一个所有权用户" id="markdown-toc-创建一个所有权用户">创建一个所有权用户</a></li>
+          <li><a href="#创建一个条件限制用户" id="markdown-toc-创建一个条件限制用户">创建一个条件限制用户</a></li>
+          <li><a href="#注意-1" id="markdown-toc-注意-1">注意</a></li>
+          <li><a href="#设置允许外网访问" id="markdown-toc-设置允许外网访问">设置允许外网访问</a></li>
+        </ul>
+      </li>
+      <li><a href="#测试-1" id="markdown-toc-测试-1">测试</a></li>
+    </ul>
+  </li>
+  <li><a href="#8生产环境的必要优化" id="markdown-toc-8生产环境的必要优化">8.生产环境的必要优化</a>    <ul>
+      <li><a href="#nginx-配置" id="markdown-toc-nginx-配置">Nginx 配置</a></li>
+      <li><a href="#laravel-的配置缓存与路由缓存" id="markdown-toc-laravel-的配置缓存与路由缓存">Laravel 的配置缓存与路由缓存</a></li>
+      <li><a href="#composer" id="markdown-toc-composer">Composer</a></li>
+      <li><a href="#再谈文件权限" id="markdown-toc-再谈文件权限">再谈文件权限</a></li>
+      <li><a href="#杂项" id="markdown-toc-杂项">杂项</a></li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong><em>Ubuntu18.04 搭建 PHP 环境</em></strong></p>
+</blockquote>
+
+<hr />
+<h1 id="1初始化系统">1.初始化系统</h1>
+
+<h2 id="实验环境">实验环境</h2>
+
+<blockquote>
+  <p>我们基于一台全新的 Ubuntu  18.04 LTS 服务器</p>
+</blockquote>
+
+<h2 id="更新软件源">更新软件源</h2>
+
+<p>登录到服务器，我们首先要做的就是更新软件源：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt update
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：这里所说的「更新软件源」并非升级软件，在中文内更加准确的描述应当是 <strong>刷新软件源</strong>。在这个过程中，包管理器（也就是 APT，可以理解为「软件管家」之类）将会从 <strong>软件源</strong> 服务器上获取一份最新的包列表并建立本地缓存，包括软件名称、描述、最新版本、下载地址等等。</p>
+</blockquote>
+
+<p>你将会看到类似这样的输出：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:~# apt update
+Hit:1 http://mirrors.jdcloudcs.com/ubuntu bionic InRelease
+Hit:2 http://mirrors.jdcloudcs.com/ubuntu bionic-updates InRelease
+Hit:3 http://mirrors.jdcloudcs.com/ubuntu bionic-backports InRelease
+Hit:4 http://mirrors.jdcloudcs.com/ubuntu bionic-security InRelease
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+112 packages can be upgraded. Run <span class="s1">'apt list --upgradable'</span> to see them.
+</code></pre></div></div>
+<p>最后一行有这样的提示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>112 packages can be upgraded. Run 'apt list --upgradable' to see them.
+
+</code></pre></div></div>
+
+<p>意为有 112 个软件包可升级，执行 <code class="highlighter-rouge">apt list --upgradable</code> 命令来查看它们。</p>
+
+<p>我们暂且忽略，直接升级：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ apt upgrade
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：生产环境下，更新任何软件包前都需要仔细检查，确保更新日志内没有影响现有环境的改动。另外，你也可以先不升级，对后续部署基本没有影响。</p>
+</blockquote>
+
+<p>你将会看到一大坨（是的，一坨）输出，它们是将被升级的软件列表；注意关注最后几行：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>112 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 196 MB of archives.
+After this operation, 348 MB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+</code></pre></div></div>
+
+<p>意为此操作将占用 348 MB 磁盘空间。此时输入 <code class="highlighter-rouge">Y</code>（注意关闭中文输入法），或直接回车即可开始升级。主流云服务厂商均有缓存软件源，数据流量是通过内网传输，所以该过程不会太慢。</p>
+
+<h2 id="本地化配置">本地化配置</h2>
+
+<p>所谓「本地化配置」，可理解为系统时区、单位、地址、语言等配置的统称。使其能够符合某一地区的习惯。虽然我们的母语是中文，但还是建议将服务器配置为英语，尽可能避免奇葩乱码等问题带来的影响。</p>
+
+<p>首先，执行以下命令生成美国本地化数据：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>locale-gen en_US.UTF-8
+</code></pre></div></div>
+
+<p>随后将本地化配置修改为 <code class="highlighter-rouge">en_US.UTF-8</code> 即可：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>update-locale <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+</code></pre></div></div>
+
+<p>如果服务器在国外，则服务商可能不会将其配置为东八区；我们还需手动修改时区为 <code class="highlighter-rouge">Asia/Shanghai</code>：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timedatectl set-timezone Asia/Shanghai
+</code></pre></div></div>
+
+<p>若你是在国内云服务商租用的服务器，那么极有可能时区已经配置好了。</p>
+
+<p>至此，系统初始化阶段完成。</p>
+
+<h1 id="2安装-nginx">2.安装 Nginx</h1>
+
+<p>上节我们刚刚完成一些基础的初始化工作；接下来，可以开始安装软件包了。在本课程内，我将使用大名鼎鼎的 Nginx 作为 Web 服务。</p>
+
+<h2 id="通过apt安装-nginx">通过apt安装 Nginx</h2>
+
+<p>由于我们执行 <code class="highlighter-rouge">apt update</code> 更新软件源不久，所以直接安装 Nginx 即可：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt <span class="nb">install </span>nginx
+</code></pre></div></div>
+
+<p>再次收到确认提示：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 upgraded, 18 newly installed, 0 to remove and 0 not upgraded.
+Need to get 2,461 kB of archives.
+After this operation, 8,210 kB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+</code></pre></div></div>
+
+<p>上节为大家介绍过输入 <code class="highlighter-rouge">Y</code> 或直接回车均可继续，也就是说此处的询问默认结果为 <code class="highlighter-rouge">Y</code>。有个普遍共识是，在提供选项供用户选择时，以大写项为默认值。例如此处的 <code class="highlighter-rouge">[Y/n]</code> 那么 <code class="highlighter-rouge">Y</code> 即为默认值；同理，若是 <code class="highlighter-rouge">[a/b/c/D/e]</code>，那么 <code class="highlighter-rouge">D</code> 即为默认值。</p>
+
+<p>另外，上节介绍了更新软件源即为包管理器从软件源服务器拉取软件包列表并建立本地缓存。其实，当我们执行 <code class="highlighter-rouge">apt install</code> 操作时，包管理器便会从本地缓存中找到该软件包的指定版本，并进行下载、安装。</p>
+
+<p>稍等几秒钟即可安装成功：</p>
+
+<h2 id="管理-nginx-服务">管理 Nginx 服务</h2>
+
+<p>我们可使用 <code class="highlighter-rouge">service</code> 命令管理服务状态，常用操作如下：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>service nginx start <span class="c"># 启动 Nginx</span>
+<span class="nv">$ </span>service nginx stop <span class="c"># 停止 Nginx</span>
+<span class="nv">$ </span>service nginx restart <span class="c"># 重启 Nginx</span>
+</code></pre></div></div>
+
+<p>同时，可使用 <code class="highlighter-rouge">systemctl</code> 命令开关服务的开机自启：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>systemctl <span class="nb">enable </span>nginx <span class="c"># 启用 Nginx 开机启动</span>
+<span class="nv">$ </span>systemctl disable nginx <span class="c"># 禁用 Nginx 开机启动</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：通常情况下，在 APT 安装后已默认启用 Nginx 开机启动。</p>
+</blockquote>
+
+<h2 id="确认-nginx-正常运行">确认 Nginx 正常运行</h2>
+
+<p>在浏览器内输入服务器公网 IP（或域名）并打开，出现默认欢迎页面说明 Nginx 已经正常运行：</p>
+
+<p><img src="/static/img/lnmp/lnmp_nginx.png" alt="" /></p>
+
+<p>恭喜，Nginx 安装成功。</p>
+
+<h1 id="3安装-php-fpm">3.安装 PHP-FPM</h1>
+
+<p>安装 PHP 7.3。</p>
+
+<h2 id="配置第三方软件源">配置第三方软件源</h2>
+
+<p>由于 Ubuntu 的官方软件源通常不包含最新版本的 PHP，因此需要添加一个包含最新 PHP 的第三方软件源。</p>
+
+<p>在添加之前，我们首先安装名为 <code class="highlighter-rouge">software-properties-common</code> 的软件包，它提供了快速管理软件源的实用脚本：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt <span class="nb">install</span> <span class="nt">-y</span> software-properties-common
+</code></pre></div></div>
+
+<p>相比之前执行的 <code class="highlighter-rouge">apt install</code> 命令，这次我添加了 <code class="highlighter-rouge">-y</code> 选项，表示当 APT 遇到询问时默认确认，避免再次输入 <code class="highlighter-rouge">Y</code> 并回车。</p>
+
+<p>随后，执行以下脚本添加第三方 PHP 软件源：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>add-apt-repository <span class="nt">-y</span> ppa:ondrej/php
+</code></pre></div></div>
+
+<p>成功后别忘记刷新：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt-get update
+</code></pre></div></div>
+
+<h2 id="安装-php">安装 PHP</h2>
+
+<p>PHP 的安装实际上分为三个软件包：</p>
+
+<ul>
+  <li>PHP - PHP 自身。</li>
+  <li>PHP-CLI - PHP 的命令行接口，通俗地说，在命令行内执行 <code class="highlighter-rouge">php</code> 便依赖于此包。</li>
+  <li>PHP-FPM - 全称为 <code class="highlighter-rouge">PHP FastCGI Process Manager</code>，用于管理 PHP 进程，并提供 FastCGI 接口与 Nginx 交互；浏览网页时的请求便是由 Nginx 交由 PHP-FPM 处理的。</li>
+</ul>
+
+<p><code class="highlighter-rouge">apt install</code> 支持多参数，所以我们不必执行多次安装，只需在单条命令内写明多个软件包即可：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt <span class="nb">install</span> <span class="nt">-y</span> php7.3 php7.3-cli php7.3-fpm php7.3-dev
+</code></pre></div></div>
+
+<p>按照 <a href="https://laravel.com/docs/6.x/installation#installation">Laravel安装文档</a> 的说明，接着安装几个必备的 PHP 扩展：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt <span class="nb">install</span> <span class="nt">-y</span> php7.3-mbstring php7.3-xml php7.3-bcmath
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：由于 PDO 等扩展已经内置在 PHP 中，故无需额外安装。</p>
+</blockquote>
+
+<p>对于不同项目的不同依赖，可能有必要安装以下扩展，根据实际情况选择即可：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt <span class="nb">install </span>php7.3-curl php7.3-gd php7.3-mysql php7.3-opcache php7.3-zip php7.3-sqlite3
+</code></pre></div></div>
+
+<p>有个小技巧是，你可以通过 <code class="highlighter-rouge">apt-cache</code> 命令来搜索当前软件源内的包：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>apt-cache search php7.3
+</code></pre></div></div>
+
+<p>例如以上命令，将会得到所有名称、描述等信息内包含 <code class="highlighter-rouge">php7.3</code> 字样的软件包：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php-amqp - AMQP extension for PHP
+php-apcu - APC User Cache for PHP
+php-geoip - GeoIP module for PHP
+...
+</code></pre></div></div>
+
+<h2 id="管理-php-fpm-服务">管理 PHP-FPM 服务</h2>
+
+<p>与管理 Nginx 服务类似，你同样可以通过 <code class="highlighter-rouge">service</code> 和 <code class="highlighter-rouge">systemctl</code> 命令管理 PHP-FPM 服务：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>service php7.3-fpm restart <span class="c"># 重启 PHP-FPM</span>
+<span class="nv">$ </span>service php7.3-fpm start <span class="c"># 启动 PHP-FPM</span>
+<span class="nv">$ </span>service php7.3-fpm stop <span class="c"># 停止 PHP-FPM</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>systemctl <span class="nb">enable </span>php7.3-fpm <span class="c"># 启用 PHP-FPM 开机启动</span>
+<span class="nv">$ </span>systemctl disable php7.3-fpm <span class="c"># 禁用 PHP-FPM 开机启动</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：不同版本的 PHP-FPM 服务名是不一致的。例如 7.2 为 <code class="highlighter-rouge">php7.2-fpm</code>，7.3 为 <code class="highlighter-rouge">php7.3-fpm</code>，以此类推……</p>
+</blockquote>
+
+<h2 id="确认-php-fpm-正常运行">确认 PHP-FPM 正常运行</h2>
+
+<p>通过以下命令可确认 PHP-FPM 进程正在运行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ps aux | <span class="nb">grep </span>php
+</code></pre></div></div>
+
+<p>其中：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">ps aux</code> 用于列出系统当前正在运行的所有进程的所有信息。</li>
+  <li><code class="highlighter-rouge">|</code> 名为管道操作符，将前一条命令的标准输出连接到下一条命令的标准输入。</li>
+  <li><code class="highlighter-rouge">grep</code> 是一款文本搜索工具，常用来过滤命令行输出；<code class="highlighter-rouge">php</code> 是搜索的关键词。</li>
+</ul>
+
+<p><code class="highlighter-rouge">ps</code> 将进程信息输出到 <code class="highlighter-rouge">grep</code> 进行过滤，后者筛选出包含 <code class="highlighter-rouge">php</code> 字样的行，再将它们输出。于是，它们相结合，产生的效果便是这样：</p>
+
+<pre><code class="language-base">root@JD:~# ps aux | grep php
+root     24292  0.0  0.2 314952 20508 ?        Ss   11:35   0:00 php-fpm: master process (/etc/php/7.3/fpm/php-fpm.conf)
+www-data 24318  0.0  0.1 317252  8652 ?        S    11:35   0:00 php-fpm: pool www
+www-data 24319  0.0  0.1 317252  8652 ?        S    11:35   0:00 php-fpm: pool www
+root     24391  0.0  0.0  13136  1048 pts/0    S+   11:36   0:00 grep --color=auto php
+</code></pre>
+
+<p>忽略最后一行（这是我们正在执行的 <code class="highlighter-rouge">grep</code> 命令），可观察到有 <code class="highlighter-rouge">php-fpm</code> 进程正在运行中。</p>
+
+<p>若 PHP-FPM 进程不存在，那么输出将只有孤零零的 <code class="highlighter-rouge">grep</code>：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root     24391  0.0  0.0  13136  1048 pts/0    S+   11:36   0:00 grep --color=auto php
+</code></pre></div></div>
+
+<blockquote>
+  <p>提示：你可以结合上文提到的 <code class="highlighter-rouge">service</code> 命令，将服务进程手动停止试试看；测试完毕不要忘记再次启动。</p>
+</blockquote>
+
+<h1 id="4composer">4.Composer</h1>
+
+<p>Composer 是部署 PHP 项目时必不可少的工具</p>
+
+<h2 id="安装-composer">安装 Composer</h2>
+
+<p>Composer 比较特殊，不能通过 APT 安装。虽然网络上流传着一大堆从第三方服务器直接下载 <code class="highlighter-rouge">composer.phar</code> 文件的安装方式，但根据 Composer 的官方文档，正确的安装姿势应当为：</p>
+
+<h3 id="第一种方式">第一种方式</h3>
+<p><a href="https://getcomposer.org/download/">参考链接</a></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php <span class="nt">-r</span> <span class="s2">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span>
+php <span class="nt">-r</span> <span class="s2">"if (hash_file('sha384', 'composer-setup.php') === 'baf1608c33254d00611ac1705c1d9958c817a1a33bce370c0595974b342601bd80b92a3f46067da89e3b06bff421f182') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"</span>
+php composer-setup.php
+php <span class="nt">-r</span> <span class="s2">"unlink('composer-setup.php');"</span>
+</code></pre></div></div>
+<h3 id="第二种方式">第二种方式</h3>
+<p><a href="https://docs.phpcomposer.com/00-intro.html#Globally">参考链接</a></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-sS</span> https://getcomposer.org/installer | php
+<span class="nb">mv </span>composer.phar /usr/local/bin/composer
+</code></pre></div></div>
+
+<h3 id="第三种方式">第三种方式</h3>
+<p><a href="https://getcomposer.org/doc/faqs/how-to-install-composer-programmatically.md">参考链接</a></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer <span class="nt">-O</span> - <span class="nt">-q</span> | php <span class="nt">--</span> <span class="nt">--filename</span><span class="o">=</span>composer <span class="nt">--install-dir</span><span class="o">=</span>/usr/local/bin
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：通过第三方服务器、直接下载 <code class="highlighter-rouge">composer.phar</code> 不进行任何检查，均无法保证 Composer 正常运行，且存在安全风险！请务必遵循官方文档内的说明。</p>
+</blockquote>
+
+<p>稍等片刻，将会出现以下输出：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>All settings correct for using Composer
+Downloading...
+</code></pre></div></div>
+<blockquote>
+  <p>这里最好按照第二种方式  执行 mv composer.phar /usr/local/bin/composer
+然后可以在任何地方执行composer了</p>
+</blockquote>
+
+<p>提示当前环境检查通过，可正常使用 Composer；随后开始下载。</p>
+
+<p>鉴于众所周知的原因，大陆访问国际网络速度奇慢无比，请耐心等待。当出现以下提示时，表示已经安装成功：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Composer (version 1.9.1) successfully installed to: /root/composer.phar
+Use it: php composer.phar
+</code></pre></div></div>
+
+<p>按照提示，我们可以使用 <code class="highlighter-rouge">/usr/local/bin/composer</code> 运行 Composer，当然，还有个更简单的方法：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mv </span>composer.phar /usr/local/bin/composer
+<span class="nv">$ </span>composer
+</code></pre></div></div>
+
+<p>你可能会收到这样一条警告：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Do not run Composer as root/super user! See https://getcomposer.org/root <span class="k">for </span>details
+</code></pre></div></div>
+
+<p>意为请勿使用根用户运行 Composer；暂时不必关心它，我将在后续课程中详细说明。</p>
+
+<h2 id="配置-packagist-中国镜像">配置 Packagist 中国镜像</h2>
+
+<p>这一步是可选的。如果你的服务器位于大陆，强烈建议使用可信赖的代理，或是国内 Packagist 镜像。</p>
+
+<p>推荐使用阿里云提供的 <a href="https://developer.aliyun.com/composer">Packagist 中国镜像</a>，执行以下命令即可切换服务器内 Composer 的默认 Packagist 源：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer config <span class="nt">-g</span> repo.packagist composer https://mirrors.aliyun.com/composer/
+</code></pre></div></div>
+
+<h1 id="5部署应用代码">5.部署应用代码</h1>
+
+<blockquote>
+  <p>这里以laravel项目为例</p>
+</blockquote>
+
+<h2 id="创建一个新项目">创建一个新项目</h2>
+<p><a href="https://laravel.com/docs/6.x/installation#installation">laravel官网</a></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /var/www/
+composer create-project <span class="nt">--prefer-dist</span> laravel/laravel blog
+</code></pre></div></div>
+<p>若提示是没有zip扩展  那么请首先安装扩展</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get <span class="nb">install </span>php7.3-zip <span class="nt">-y</span>
+</code></pre></div></div>
+
+<h2 id="配置文件所有者">配置文件所有者</h2>
+
+<p>最后，别忘记修改文件所有者：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">chown</span> <span class="nt">-R</span> www-data:www-data <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>由于目前所在的工作目录为 <code class="highlighter-rouge">/var/www/blog</code>，所以可用表示当前工作目录的 <code class="highlighter-rouge">.</code> 代替之前的 <code class="highlighter-rouge">/var/www/blog</code>，它们是等效的。</p>
+
+<p>至此，本小节目标完成。你可以通过 <code class="highlighter-rouge">ll</code> 命令来列出当前目录：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:/var/www/blog# ll
+total 300
+drwxr-xr-x 12 www-data www-data   4096 Dec 26 12:03 ./
+drwxr-xr-x  4 root     root       4096 Dec 26 12:02 ../
+...
+</code></pre></div></div>
+
+<h1 id="6配置-nginx-站点">6.配置 Nginx 站点</h1>
+
+<h2 id="nginx-站点配置">Nginx 站点配置</h2>
+
+<p>根据 <a href="https://laravel.com/docs/6.x/deployment">Laravel部署文档</a> 的说明，我们可直接拿到一份现成的 Nginx 配置文件，稍作调整即可：</p>
+
+<blockquote>
+  <p>我这里做了下解释说明 <a href="https://wi1dcard.dev/posts/laravel-recommended-nginx-conf-analysis/">参考文章</a></p>
+</blockquote>
+
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">server</span> <span class="p">{</span>
+    <span class="c1">#监听 HTTP 协议默认的 [80] 端口。
+</span>    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="c1">#绑定主机名 [example.com]。
+</span>    <span class="kn">server_name</span> <span class="s">example.com</span><span class="p">;</span>
+    <span class="c1">#服务器站点根目录 [/example.com/public]。
+</span>    <span class="kn">root</span> <span class="n">/example.com/public</span><span class="p">;</span>
+
+    <span class="c1"># 添加几条有关安全的响应头
+</span>    <span class="kn">add_header</span> <span class="s">X-Frame-Options</span> <span class="s">"SAMEORIGIN"</span><span class="p">;</span>
+    <span class="kn">add_header</span> <span class="s">X-XSS-Protection</span> <span class="s">"1</span><span class="p">;</span> <span class="kn">mode=block"</span><span class="p">;</span>
+    <span class="kn">add_header</span> <span class="s">X-Content-Type-Options</span> <span class="s">"nosniff"</span><span class="p">;</span>
+
+    <span class="c1"># 站点默认页面；可指定多个，将顺序查找。
+</span>    <span class="c1"># 例如，访问 http://example.com/ Nginx 将首先尝试「站点根目录/index.html」是否存在，不存在则继续尝试「站点根目录/index.htm」，以此类推...
+</span>    <span class="kn">index</span> <span class="s">index.html</span> <span class="s">index.htm</span> <span class="s">index.php</span><span class="p">;</span>
+
+    <span class="c1"># 指定字符集为 UTF-8
+</span>    <span class="kn">charset</span> <span class="s">utf-8</span><span class="p">;</span>
+
+    <span class="c1"># Laravel 默认重写规则；删除将导致 Laravel 路由失效且 Nginx 响应 404。
+</span>    <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri</span><span class="n">/</span> <span class="n">/index.php?</span><span class="nv">$query_string</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># 关闭 [/favicon.ico] 和 [/robots.txt] 的访问日志。
+</span>    <span class="c1"># 并且即使它们不存在，也不写入错误日志。
+</span>    <span class="kn">location</span> <span class="p">=</span> <span class="n">/favicon.ico</span> <span class="p">{</span> <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span> <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kn">location</span> <span class="p">=</span> <span class="n">/robots.txt</span>  <span class="p">{</span> <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span> <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span> <span class="p">}</span>
+    
+    <span class="c1"># 将 [404] 错误交给 [/index.php] 处理，表示由 Laravel 渲染美观的错误页面。
+</span>    <span class="kn">error_page</span> <span class="mi">404</span> <span class="n">/index.php</span><span class="p">;</span>
+
+    <span class="c1"># URI 符合正则表达式 [\.php$] 的请求将进入此段配置
+</span>    <span class="kn">location</span> <span class="p">~</span> <span class="sr">\.php$</span> <span class="p">{</span>
+        <span class="c1"># 配置 FastCGI 服务地址，可以为 IP:端口，也可以为 Unix socket。
+</span>        <span class="kn">fastcgi_pass</span> <span class="s">unix:/var/run/php/php7.2-fpm.sock</span><span class="p">;</span>
+        <span class="c1"># 配置 FastCGI 的主页为 index.php。
+</span>        <span class="kn">fastcgi_index</span> <span class="s">index.php</span><span class="p">;</span>
+        <span class="c1"># 配置 FastCGI 参数 SCRIPT_FILENAME 为 $realpath_root$fastcgi_script_name。
+</span>        <span class="kn">fastcgi_param</span> <span class="s">SCRIPT_FILENAME</span> <span class="nv">$realpath_root$fastcgi_script_name</span><span class="p">;</span>
+        <span class="c1"># 引用更多默认的 FastCGI 参数。
+</span>        <span class="kn">include</span> <span class="s">fastcgi_params</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="c1"># 通俗地说，以上配置将所有 URI 以 .php 结尾的请求，全部交给 PHP-FPM 处理。
+</span>    
+    <span class="c1"># 除符合正则表达式 [/\.(?!well-known).*] 之外的 URI，全部拒绝访问
+</span>    <span class="c1"># 也就是说，拒绝公开以 [.] 开头的目录，[.well-known] 除外
+</span>    <span class="kn">location</span> <span class="p">~</span> <span class="sr">/\.(?!well-known).*</span> <span class="p">{</span>
+        <span class="kn">deny</span> <span class="s">all</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>通常我们仅需修改 <code class="highlighter-rouge">server_name</code>、<code class="highlighter-rouge">root</code> 和 <code class="highlighter-rouge">fastcgi_pass</code>；请注意阅读 <code class="highlighter-rouge">#</code> 后的注释。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /etc/nginx/sites-available
+
+vi  blog.cn <span class="c">#填入你对应的配置信息</span>
+
+<span class="c">#建立软连接</span>
+<span class="nb">sudo ln</span> <span class="nt">-s</span> /etc/nginx/sites-available/acme.cn /etc/nginx/sites-enabled/
+
+<span class="c">#检测nginx配置是否正确</span>
+nginx <span class="nt">-t</span>
+<span class="c">#配置正常返回如下结果</span>
+<span class="c">#nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span>
+<span class="c">#nginx: configuration file /etc/nginx/nginx.conf test is successful</span>
+
+<span class="c">#重启nginx</span>
+service nginx restart
+
+<span class="c">#重启fpm 这里一定要重启</span>
+service php7.3-fpm restart
+</code></pre></div></div>
+
+<h2 id="fastcgi-服务地址为-ip端口时的配置">FastCGI 服务地址为 IP:端口时的配置</h2>
+
+<h3 id="首先修改php的配置文件">首先修改php的配置文件</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> vim /etc/php/7.3/fpm/pool.d/www.conf
+</code></pre></div></div>
+
+<blockquote>
+  <p>在37行加入如下代码</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> listen <span class="o">=</span> 127.0.0.1:9000
+</code></pre></div></div>
+<blockquote>
+  <p>另外需要注意下如果配置文件内有 listen =/run/php/php7.3-fpm.sock 最好注释 以免冲突</p>
+</blockquote>
+
+<h3 id="配置一">配置一</h3>
+
+<p>若fpm配置文件中配置如下：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> listen <span class="o">=</span> 127.0.0.1:9000
+</code></pre></div></div>
+<p>则对应的nginx.conf中的配置应为：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fastcgi_pass   127.0.0.1:9000<span class="p">;</span>
+</code></pre></div></div>
+<blockquote>
+  <p>此时开启9000端口监听，不会生成sock文件</p>
+</blockquote>
+
+<h3 id="配置二">配置二</h3>
+
+<p>若fpm中的配置为使用Unix套接字，如下：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> listen <span class="o">=</span> /run/php/php7.3-fpm.sock
+</code></pre></div></div>
+<p>则对应nginx.conf中的配置应为：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fastcgi_pass   unix:/run/php/php7.3-fpm.sock<span class="p">;</span>
+</code></pre></div></div>
+<blockquote>
+  <p>此时9000端口未开启，在/run/php/下生成php7.2-fpm.sock文件：</p>
+</blockquote>
+
+<h3 id="注意">注意</h3>
+
+<blockquote>
+  <p>若两者不匹配则nginx启动失败。</p>
+</blockquote>
+
+<blockquote>
+  <p>若fpm为sock，nginx为127.0.0.1:9000，则会出现以下错误：</p>
+</blockquote>
+
+<blockquote>
+  <p>connect() failed (111: Connection refused) while connecting to upstream</p>
+</blockquote>
+
+<blockquote>
+  <p>若fpm未127.0.0.1:9000,nginx为sock，则会出现以下错误：</p>
+</blockquote>
+
+<blockquote>
+  <p>connect() to unix:/run/php/php7.2-fpm.sock failed (2: No such file or directory) while connecting to upstream</p>
+</blockquote>
+
+<h2 id="重载-nginx">重载 Nginx</h2>
+
+<p>配置完成后，请务必重启（Restart）或重载（Reload）Nginx。</p>
+
+<p>什么是 <strong>重载</strong>？实际上，直接重启 Nginx 是不安全的。原因有二：</p>
+
+<ul>
+  <li>在 Nginx 进程结束再重新运行的过程中，将造成极短时间的闪断。虽然这一时间通常很短（一般来说在秒级别），但倘若面对大量并发，还是极易造成一部分请求无法访问，即服务中断。</li>
+  <li>在重启的过程中，若此时 Nginx 恰好正在处理请求，与客户端的 TCP 连接将会断开，客户端无法收到正确响应，造成前后端信息不一致。</li>
+</ul>
+
+<p>在之前的小节中，已经提到重启 Nginx 的方法；</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>service nginx restart
+</code></pre></div></div>
+
+<p>同样地，亦可使用 <code class="highlighter-rouge">service</code> 命令重载 Nginx：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>service nginx reload
+</code></pre></div></div>
+
+<p>另一种等效的方法是：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nginx <span class="nt">-s</span> reload
+</code></pre></div></div>
+
+<h2 id="最终效果">最终效果</h2>
+
+<p>在浏览器内输入服务器公网 IP 或域名并访问，你将会看到 Laravel 应用的默认主页：</p>
+
+<p><img src="/static/img/lnmp/laravel_hellow.png" alt="页面效果" /></p>
+
+<p>恭喜你，部署成功。</p>
+
+<h1 id="7安装mysql">7.安装MYSQL</h1>
+
+<h2 id="通过apt安装mysql">通过apt安装mysql</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get <span class="nb">install </span>mysql-server mysql-client <span class="nt">-y</span>
+</code></pre></div></div>
+<h2 id="管理-mysql-服务">管理 Mysql 服务</h2>
+
+<p>我们可使用 <code class="highlighter-rouge">service</code> 命令管理服务状态，常用操作如下：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>service mysql start <span class="c"># 启动 Mysql</span>
+<span class="nv">$ </span>service mysql stop <span class="c"># 停止 Mysql</span>
+<span class="nv">$ </span>service mysql restart <span class="c"># 重启 Mysql</span>
+</code></pre></div></div>
+<p>同时，可使用 <code class="highlighter-rouge">systemctl</code> 命令开关服务的开机自启：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>systemctl <span class="nb">enable </span>mysql <span class="c"># 启用 Mysql 开机启动</span>
+<span class="nv">$ </span>systemctl disable mysql <span class="c"># 禁用 Mysql 开机启动</span>
+</code></pre></div></div>
+<p>通过以上配置，可使 Nginx 匹配请求 URI，若以 <code class="highlighter-rouge">js</code> 或 <code class="highlighter-rouge">css</code> 结尾，则将响应头 <code class="highlighter-rouge">Expires</code> 的值设置为 <code class="highlighter-rouge">24h</code> 返回。客户端浏览器将根据该值建立资源缓存，并在指定时间后过期，因此可节省部分服务器静态资源流量。<code class="highlighter-rouge">24h</code> 可根据需要调整，若使用 CDN 服务分发静态资源，则不必配置此项。</p>
+
+<h2 id="测试">测试</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:/var/run/php# mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MySQL connection <span class="nb">id </span>is 2
+Server version: 5.7.28-0ubuntu0.18.04.4 <span class="o">(</span>Ubuntu<span class="o">)</span>
+
+Copyright <span class="o">(</span>c<span class="o">)</span> 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the current input statement.
+
+mysql&gt; 
+</code></pre></div></div>
+<p>出现以上结果说明mysql安装成功</p>
+
+<p>进入数据库后输入命令 设置新的密码</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>use mysql<span class="p">;</span>
+update mysql.user <span class="nb">set </span><span class="nv">authentication_string</span><span class="o">=</span>PASSWORD<span class="o">(</span><span class="s1">'新密码'</span><span class="o">)</span>, <span class="nv">plugin</span><span class="o">=</span><span class="s1">'mysql_native_password'</span> where <span class="nv">user</span><span class="o">=</span><span class="s1">'root'</span><span class="p">;</span>
+<span class="c">#执行成功显示如下</span>
+<span class="c">#Query OK, 1 row affected, 1 warning (0.00 sec)</span>
+<span class="c">#Rows matched: 1  Changed: 1  Warnings: 1</span>
+
+<span class="c">#刷新权限</span>
+flush privileges<span class="p">;</span>
+<span class="c">#Query OK, 0 rows affected (0.00 sec)</span>
+
+<span class="nb">exit</span><span class="p">;</span>
+</code></pre></div></div>
+<p>重启MySQL服务，再次进入数据库吗，输入新设置的密码 重启mysql服务</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service mysql restart
+
+mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+<h2 id="mysql-创建新用户">mysql 创建新用户</h2>
+
+<h3 id="创建一个所有权用户">创建一个所有权用户</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+mysql&gt;create user db_user@<span class="s1">'%'</span> identified by <span class="s1">'db_password'</span><span class="p">;</span> <span class="c">#创建用户</span>
+mysql&gt; grant all privileges on <span class="k">*</span>.<span class="k">*</span> to db_user@<span class="s1">'%'</span> with grant option<span class="p">;</span> <span class="c">#授权</span>
+flush privileges<span class="p">;</span>
+mysql&gt; <span class="nb">exit</span><span class="p">;</span>
+</code></pre></div></div>
+<h3 id="创建一个条件限制用户">创建一个条件限制用户</h3>
+
+<blockquote>
+  <p>添加一个用户名为db_user，密码为db_pass，授权为% （%表示所有IP能连接）对db_name数据库所有权限，命令如下：</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#MySQL8.0版本</span>
+mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+mysql&gt;create user db_user@<span class="s1">'%'</span> identified by <span class="s1">'db_pass'</span><span class="p">;</span><span class="c">#创建用户</span>
+mysql&gt; grant all privileges on db_name.<span class="k">*</span> to db_user@<span class="s1">'%'</span> with grant option<span class="p">;</span> <span class="c">#授权</span>
+flush privileges<span class="p">;</span>
+mysql&gt; <span class="nb">exit</span><span class="p">;</span>
+
+<span class="c">#其余MySQL版本</span>
+mysql&gt; grant all privileges on db_name.<span class="k">*</span> to db_user@<span class="s1">'%'</span> identified by <span class="s1">'db_pass'</span><span class="p">;</span> <span class="c">#授权语句，特别注意有分号</span>
+flush privileges<span class="p">;</span>
+mysql&gt; <span class="nb">exit</span><span class="p">;</span>
+</code></pre></div></div>
+<h3 id="注意-1">注意</h3>
+
+<blockquote>
+  <p>最后记得重启  service mysql restart 还有 如果是云服务器 记得设置安全组允许端口访问</p>
+</blockquote>
+
+<h3 id="设置允许外网访问">设置允许外网访问</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi /etc/mysql/mysql.conf.d/mysqld.cnf
+<span class="c">#注释掉 #bind-address = 127.0.0.1</span>
+
+<span class="c">#再重启启动mysql 生效</span>
+service mysql restart
+</code></pre></div></div>
+<h2 id="测试-1">测试</h2>
+<p><img src="/static/img/lnmp/test_mysql.png" alt="效果如图" /></p>
+
+<h1 id="8生产环境的必要优化">8.生产环境的必要优化</h1>
+
+<p>本篇内容部分摘选自 <a href="https://laravel.com/docs/6.x/deployment">Laravel部署文档</a>，你可以阅读该文档获取更多信息。</p>
+
+<h2 id="nginx-配置">Nginx 配置</h2>
+
+<p>对于 Laravel 应用来说，优化 Nginx 配置所带来的性能提升可谓微不足道。因此不建议在中小型项目中花费较多精力调优 Nginx。</p>
+
+<p>不过，有一点值得注意：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+    # ...
+    location ~* \.(js|css)$ {
+        expires 24h;
+    }
+    #...
+}
+</code></pre></div></div>
+
+<p>通过以上配置，可使 Nginx 匹配请求 URI，若以 <code class="highlighter-rouge">js</code> 或 <code class="highlighter-rouge">css</code> 结尾，则将响应头 <code class="highlighter-rouge">Expires</code> 的值设置为 <code class="highlighter-rouge">24h</code> 返回。客户端浏览器将根据该值建立资源缓存，并在指定时间后过期，因此可节省部分服务器静态资源流量。<code class="highlighter-rouge">24h</code> 可根据需要调整，若使用 CDN 服务分发静态资源，则不必配置此项。</p>
+
+<h2 id="laravel-的配置缓存与路由缓存">Laravel 的配置缓存与路由缓存</h2>
+
+<p>开启 <strong>配置缓存</strong> 和 <strong>路由缓存</strong> 能够在一定程度上提升 Laravel 的性能。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan config:cache <span class="c"># 生成配置缓存</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：当开启配置缓存后，<code class="highlighter-rouge">env()</code> 函数将会失效；它将会永远返回 <code class="highlighter-rouge">null</code>；因此务必确保在非配置文件内，未直接调用该函数。</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan route:cache <span class="c"># 生成路由缓存</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：路由缓存仅支持控制器风格；若路由注册时存在闭包（Closures），则无法使用该功能。</p>
+</blockquote>
+
+<blockquote>
+  <p>注意：生成缓存后，对配置和路由的修改将不会生效，需再次执行缓存命令，或使用 <code class="highlighter-rouge">php artisan cache:clear</code> 命令清除它们。</p>
+</blockquote>
+
+<h2 id="composer">Composer</h2>
+
+<p>在安装依赖时，建议使用以下命令：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>composer <span class="nb">install</span> <span class="nt">--optimize-autoloader</span> <span class="nt">--no-dev</span>
+</code></pre></div></div>
+
+<p>其中，<code class="highlighter-rouge">--optimize-autoloader</code> 表示生成优化后的自动加载器，虽然生成过程可能较慢，但换来的是提高运行时的效率。<code class="highlighter-rouge">--no-dev</code> 表示不安装 composer.json 中 <code class="highlighter-rouge">require-dev</code> 声明的扩展包，在生产环境中我们不需要这些开发依赖。</p>
+
+<h2 id="再谈文件权限">再谈文件权限</h2>
+
+<p>文件权限直接关系到服务器安全与否。通常情况下，我们应当遵循「最小权限原则」，即权限越小越好。对于 Laravel 来说，我个人比较倾向的权限配置为：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /var/www/blog
+<span class="nv">$ </span><span class="nb">chmod</span> <span class="nt">-R</span> 750 <span class="nb">.</span>
+<span class="nv">$ </span><span class="nb">chmod</span> <span class="nt">-R</span> 770 storage bootstrap/cache
+</code></pre></div></div>
+
+<p>你可以通过在线工具 <a href="https://chmod-calculator.com/">Chmod Calculator</a> 来计算八进制权限数字：</p>
+
+<p><img src="/static/img/lnmp/per.png" alt="" /></p>
+
+<p>上图是 <code class="highlighter-rouge">750</code> 所代表的权限，即文件所有者可 <strong>读、写、执行（进入）</strong>，文件所有组可 <strong>读、执行（进入）</strong>，其余用户 <strong>均不可</strong>。</p>
+
+<blockquote>
+  <p>注意：对于文件来说，<code class="highlighter-rouge">Execute</code> 权限表示可执行；对于目录来说，表示可进入（即 <code class="highlighter-rouge">cd</code>）。为方便描述，以下统称为「执行」权限。</p>
+</blockquote>
+
+<p>也就是说，运行 Nginx 和 PHP-FPM 的 <code class="highlighter-rouge">www-data</code> 用户，可读、写、执行；<code class="highlighter-rouge">www-data</code> 用户组内的用户可读、执行。</p>
+
+<p>而 <code class="highlighter-rouge">770</code> 则更加宽松 —— 对于 Laravel 运行时需要写入的目录，赋予文件所有组可 <strong>读、写、执行</strong> 权限；也就是说 <code class="highlighter-rouge">www-data</code> 用户组内的用户可写 <code class="highlighter-rouge">storage</code>、<code class="highlighter-rouge">bootstrap/cache</code> 目录。</p>
+
+<h2 id="杂项">杂项</h2>
+
+<p>根据应用本身的逻辑不同，涉及的 Laravel 功能也不一样。针对部分项目，你有可能还需要执行以下 Artisan 命令：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php artisan storage:link <span class="c"># 软链接 app/storage 到 public 目录，以便公开访问</span>
+<span class="nv">$ </span>php artisan migrate <span class="c"># 执行迁移</span>
+<span class="nv">$ </span>php artisan db:seed <span class="c"># 执行数据填充</span>
+</code></pre></div></div>
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#ubuntu"><span class="octicon octicon-tag"></span>&nbsp;ubuntu</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#php"><span class="octicon octicon-tag"></span>&nbsp;php</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#lnmp"><span class="octicon octicon-tag"></span>&nbsp;lnmp</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#composer"><span class="octicon octicon-tag"></span>&nbsp;composer</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#nginx"><span class="octicon octicon-tag"></span>&nbsp;nginx</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#mysql"><span class="octicon octicon-tag"></span>&nbsp;mysql</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/ubuntu-%E5%AE%89%E8%A3%85-elasticsearch%E5%92%8Cik-analyzer%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/">ubuntu 安装 elasticsearch和ik-analyzer中文分词</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/mysql/%E5%9F%BA%E4%BA%8E-SMProxy-%E9%80%9A%E8%BF%87%E5%8D%8F%E7%A8%8B%E8%B0%83%E5%BA%A6%E5%AE%9E%E7%8E%B0-MySQL-%E8%BF%9E%E6%8E%A5%E6%B1%A0/">基于 MySQL 协议，Swoole 开发的MySQL数据库连接池使用教程。</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/mysql/MYSQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">MYSQL 主从复制</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

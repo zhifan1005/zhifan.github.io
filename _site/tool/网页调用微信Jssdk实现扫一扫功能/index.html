@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>网页调用微信Jssdk实现扫一扫功能</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="网页调用微信Jssdk实现扫一扫功能, Tool, 微信,扫一扫, renzhifan" />
+    <meta name="description" content="网页调用微信Jssdk实现扫一扫功能, Tool, 微信,扫一扫, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/tool/%E7%BD%91%E9%A1%B5%E8%B0%83%E7%94%A8%E5%BE%AE%E4%BF%A1Jssdk%E5%AE%9E%E7%8E%B0%E6%89%AB%E4%B8%80%E6%89%AB%E5%8A%9F%E8%83%BD/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>网页调用微信Jssdk实现扫一扫功能</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Jan 2, 2020
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#Tool"><span class="octicon octicon-list-unordered"></span>&nbsp;Tool</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#微信"><span class="octicon octicon-tag"></span>&nbsp;微信</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#扫一扫"><span class="octicon octicon-tag"></span>&nbsp;扫一扫</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#微信公众号配置" id="markdown-toc-微信公众号配置">微信公众号配置</a>    <ul>
+      <li><a href="#第一步js接口安全域设置" id="markdown-toc-第一步js接口安全域设置">第一步，JS接口安全域设置</a></li>
+      <li><a href="#第二步配置ip白名单" id="markdown-toc-第二步配置ip白名单">第二步，配置ip白名单。</a></li>
+    </ul>
+  </li>
+  <li><a href="#导入相关js" id="markdown-toc-导入相关js">导入相关JS</a></li>
+  <li><a href="#通过config接口注入权限验证配置" id="markdown-toc-通过config接口注入权限验证配置">通过config接口注入权限验证配置</a></li>
+  <li><a href="#调起扫一扫接口" id="markdown-toc-调起扫一扫接口">调起扫一扫接口</a></li>
+  <li><a href="#项目链接" id="markdown-toc-项目链接">项目链接</a></li>
+</ul>
+
+<blockquote>
+  <p><strong><em>网页调用微信Jssdk实现扫一扫功能</em></strong></p>
+</blockquote>
+
+<hr />
+<h2 id="微信公众号配置">微信公众号配置</h2>
+
+<h3 id="第一步js接口安全域设置">第一步，JS接口安全域设置</h3>
+<p><img src="/static/img/weixinsys/1.png" alt="1.png" /></p>
+
+<h3 id="第二步配置ip白名单">第二步，配置ip白名单。</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 换服务器的时候被坑了。。。一直报config:invalid signature，之前都是弄好的。后面忘了
+</code></pre></div></div>
+<p><img src="/static/img/weixinsys/2.png" alt="1.png" /></p>
+
+<h2 id="导入相关js">导入相关JS</h2>
+<ul>
+  <li>在需要调用JS接口的页面引入如下JS文件，（支持https）：
+<a href="http://res.wx.qq.com/open/js/jweixin-1.2.0.js">http://res.wx.qq.com/open/js/jweixin-1.2.0.js</a></li>
+</ul>
+
+<h2 id="通过config接口注入权限验证配置">通过config接口注入权限验证配置</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var _data = {
+
+  tokenUrl:location.href,
+
+  t:Math.random()
+
+};
+
+var _getWechatSignUrl = HTTP_AUTH_HOST_SERVER+'czj/wx/XSign';
+
+// 获取微信签名
+
+$.ajax({
+
+  url:_getWechatSignUrl,
+
+  data:_data,
+
+  dataType:"jsonp",
+
+  success:function (o) {
+
+        //alert('获取数据：timestamp:'+o.value.timestamp+'nonceStr:'+o.value.nonceStr+'signature:'+o.value.signature);
+
+     console.log("获取微信签名:"+o);
+
+  if (o.result ==true) {
+
+    wxConfig(o.value.timestamp, o.value.nonceStr, o.value.signature,o.value.appId);
+
+    console.log("appid:"+o.value.appId)
+
+}
+
+},err:function (err) {
+
+      alert("----"+err);
+
+}
+
+});
+
+function wxConfig(_timestamp, _nonceStr, _signature,_appId) {
+
+     //alert('获取数据：'+_timestamp+'\n'+_nonceStr+'\n'+_signature);
+
+    console.log('获取数据：' + _timestamp +'\n' + _nonceStr +'\n' + _signature);
+
+  wx.config({
+
+  debug:false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+
+        appId: _appId,// 必填，公众号的唯一标识
+
+        timestamp: _timestamp,// 必填，生成签名的时间戳
+
+        nonceStr: _nonceStr,// 必填，生成签名的随机串
+
+        signature: _signature,// 必填，签名，见附录1
+
+        jsApiList: ['checkJsApi','scanQRCode']
+
+// 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+    });
+
+}     
+</code></pre></div></div>
+
+<h2 id="调起扫一扫接口">调起扫一扫接口</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function scanCode(callback) {
+
+  wx.scanQRCode({
+
+  needResult:1,
+
+  scanType: ["qrCode","barCode"],
+
+  success:function (res) {
+
+        console.log(res)
+
+  //alert(JSON.stringify(res));
+
+        var result = res.resultStr;
+
+        setTimeout(callback(result),500);
+
+   },
+
+  error:function(res){
+
+        alert(JSON.stringify(res))
+
+        if(res.errMsg.indexOf('function_not_exist') &gt;0){
+
+        alert('版本过低请升级')
+
+      }
+
+    }
+
+  });
+
+}
+</code></pre></div></div>
+
+<h2 id="项目链接">项目链接</h2>
+<p><a href="https://github.com/renzhifan/origin">项目链接</a></p>
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#微信"><span class="octicon octicon-tag"></span>&nbsp;微信</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#扫一扫"><span class="octicon octicon-tag"></span>&nbsp;扫一扫</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/ubuntu-%E5%AE%89%E8%A3%85-elasticsearch%E5%92%8Cik-analyzer%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/">ubuntu 安装 elasticsearch和ik-analyzer中文分词</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/%E6%94%B6%E8%97%8F%E7%9A%84%E5%A5%BD%E6%96%87%E9%93%BE%E6%8E%A5(%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0)/">收集的好文链接(长期更新)</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/Centos-7-%E9%85%8D%E7%BD%AE-supervisor-%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Centos-7-配置-supervisor-遇到的坑</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+plugins: [jekyll-paginate]
+
+permalink: /:categories/:title/
+
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input:  GFM
+  syntax_highlighter: rouge
+
+
+paginate: 10
+paginate_path: "page/:num"
+baseurl: ""
+
+
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      styles : [highlight.css,gitment.css,post.css]
+      scripts : [gitment.js, post.js]
+
+
+
+title: "renzhifan"
+email: zhifan6797@163.com
+description: ""
+github:
+  username: renzhifan
+swiftype:
+  searchId: gbzyqe9r9YEcyzmzNHoF
+gitment:
+  enable: true
+  repo: blog
+  client_id: f3dd18c7c10242a9c275
+  client_secret: 654fc9ad99218ceab536470dd466354ef618c04d
+  lazy: true
+
+url: "https://renzhifan.github.io"
+imgrepo: "https://renzhifan.github.io/static/img"
+
+
+#url: "http://127.0.0.1:4000"
+#imgrepo: "http://127.0.0.1:4000/static/img"
+
+
+#theme: jekyll-theme-cayman

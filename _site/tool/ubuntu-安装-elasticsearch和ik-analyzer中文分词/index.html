@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ubuntu 安装 elasticsearch和ik-analyzer中文分词</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="ubuntu 安装 elasticsearch和ik-analyzer中文分词, Tool, ubuntu,elasticsearch,ik-analyzer, renzhifan" />
+    <meta name="description" content="ubuntu 安装 elasticsearch和ik-analyzer中文分词, Tool, ubuntu,elasticsearch,ik-analyzer, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/tool/ubuntu-%E5%AE%89%E8%A3%85-elasticsearch%E5%92%8Cik-analyzer%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>ubuntu 安装 elasticsearch和ik-analyzer中文分词</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Dec 27, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#Tool"><span class="octicon octicon-list-unordered"></span>&nbsp;Tool</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#ubuntu"><span class="octicon octicon-tag"></span>&nbsp;ubuntu</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#elasticsearch"><span class="octicon octicon-tag"></span>&nbsp;elasticsearch</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#ik-analyzer"><span class="octicon octicon-tag"></span>&nbsp;ik-analyzer</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#安装java环境" id="markdown-toc-安装java环境">安装java环境</a></li>
+  <li><a href="#安装elasticsearch" id="markdown-toc-安装elasticsearch">安装Elasticsearch</a>    <ul>
+      <li><a href="#安装公钥" id="markdown-toc-安装公钥">安装公钥</a></li>
+      <li><a href="#添加源" id="markdown-toc-添加源">添加源</a></li>
+      <li><a href="#安装es" id="markdown-toc-安装es">安装es</a></li>
+      <li><a href="#命令管理" id="markdown-toc-命令管理">命令管理</a>        <ul>
+          <li><a href="#systemd" id="markdown-toc-systemd">systemd</a></li>
+          <li><a href="#启动" id="markdown-toc-启动">启动</a></li>
+          <li><a href="#关闭" id="markdown-toc-关闭">关闭</a></li>
+          <li><a href="#端口与查看" id="markdown-toc-端口与查看">端口与查看</a></li>
+        </ul>
+      </li>
+      <li><a href="#访问试下" id="markdown-toc-访问试下">访问试下</a></li>
+      <li><a href="#配置-elasticsearch" id="markdown-toc-配置-elasticsearch">配置 Elasticsearch</a>        <ul>
+          <li><a href="#配置参数" id="markdown-toc-配置参数">配置参数</a></li>
+          <li><a href="#包的目录布局" id="markdown-toc-包的目录布局">包的目录布局</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#安装-ik-analyzer" id="markdown-toc-安装-ik-analyzer">安装 ik-analyzer</a>    <ul>
+      <li><a href="#安装" id="markdown-toc-安装">安装</a></li>
+      <li><a href="#重启服务" id="markdown-toc-重启服务">重启服务</a></li>
+      <li><a href="#测试" id="markdown-toc-测试">测试</a>        <ul>
+          <li><a href="#测试不使用分词" id="markdown-toc-测试不使用分词">测试不使用分词</a></li>
+          <li><a href="#测试使用分词" id="markdown-toc-测试使用分词">测试使用分词</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong><em>收集的好文链接(长期更新)</em></strong></p>
+</blockquote>
+
+<hr />
+<h1 id="安装java环境">安装java环境</h1>
+
+<blockquote>
+  <p>我们首先要配置java环境，这个需要Java8或者更新的包。一般执行以下命令时可以看看Java版本是否符合：</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>default-jdk
+</code></pre></div></div>
+
+<h1 id="安装elasticsearch">安装Elasticsearch</h1>
+
+<h2 id="安装公钥">安装公钥</h2>
+<p>在安装之前我们需要下载和安装公钥，否则没有办法使用apt安装Elasticsearch。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget <span class="nt">-qO</span> - https://artifacts.elastic.co/GPG-KEY-elasticsearch | <span class="nb">sudo </span>apt-key add -
+</code></pre></div></div>
+
+<h2 id="添加源">添加源</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>apt-transport-https
+<span class="nb">echo</span> <span class="s2">"deb https://artifacts.elastic.co/packages/6.x/apt stable main"</span> | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/apt/sources.list.d/elastic-6.x.list
+</code></pre></div></div>
+<h2 id="安装es">安装es</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt-get <span class="nb">install </span>elasticsearch
+</code></pre></div></div>
+
+<blockquote>
+  <p>这样就安装好了。</p>
+</blockquote>
+
+<h2 id="命令管理">命令管理</h2>
+
+<h3 id="systemd">systemd</h3>
+
+<blockquote>
+  <p>设置开机启动：</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl daemon-reload
+<span class="nb">sudo </span>systemctl <span class="nb">enable </span>elasticsearch
+</code></pre></div></div>
+
+<h3 id="启动">启动</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl start elasticsearch
+</code></pre></div></div>
+<h3 id="关闭">关闭</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl stop elasticsearch
+</code></pre></div></div>
+
+<h3 id="端口与查看">端口与查看</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat <span class="nt">-plntu</span>  
+</code></pre></div></div>
+
+<h2 id="访问试下">访问试下</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-XGET</span> <span class="s1">'127.0.0.1:9200/?pretty'</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>如果返回的数据如下所示，即表示安装成功了：</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "name" : "fi_nt2e",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "mO1Ly_8YSnWm1gYNPIL-MA",
+  "version" : {
+    "number" : "6.8.6",
+    "build_flavor" : "default",
+    "build_type" : "deb",
+    "build_hash" : "3d9f765",
+    "build_date" : "2019-12-13T17:11:52.013738Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.7.2",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意：Elasticsearch需要启动一会。如果启动完成立马执行上面的命令，可以会提示拒绝连接，多试几次就好了。</p>
+</blockquote>
+
+<h2 id="配置-elasticsearch">配置 Elasticsearch</h2>
+
+<h3 id="配置参数">配置参数</h3>
+<blockquote>
+  <p>Elasticsearch 默认情况下从 /etc/elasticsearch/elasticsearch.yml 文件中加载它的配置。</p>
+</blockquote>
+
+<p>RPM也又一个系统配置文件（/etc/sysconfig/elasticsearch），它允许你设置以下参数：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>参数</th>
+      <th>解释</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>JAVA_HOME</td>
+      <td>设置要使用的自定义Java路径</td>
+    </tr>
+    <tr>
+      <td>MAX_OPEN_FILES</td>
+      <td>打开文件的最大数量，默认65536</td>
+    </tr>
+    <tr>
+      <td>MAX_LOCKED_MEMORY</td>
+      <td>最大锁内存大小。如果你在elasticsearch.yml中使用bootstrap.memory_lock选项，请设置unlimited</td>
+    </tr>
+    <tr>
+      <td>MAX_MAP_COUNT</td>
+      <td>进程可能拥有的内存映射区域的最大值。如果使用 mmapfs 作为索引存储类型，请确认将其设置为较高的值。请检查linux内核文档关于max_map_count的更多信息。这是在elasticsearch启动之前通过sysctl设置的。默认是262144</td>
+    </tr>
+    <tr>
+      <td>ES_PATH_CONF</td>
+      <td>配置文件目录（需要包含elasticsearch.yml和log4j2.properties文件），默认路径是：/etc/elasticsearch</td>
+    </tr>
+    <tr>
+      <td>ES_JAVA_OPTS</td>
+      <td>Any additional JVM system properties you may want to apply.</td>
+    </tr>
+    <tr>
+      <td>RESTART_ON_UPGRADE</td>
+      <td>配置软件包升级时将会重新启动，默认是false。这意味着你在安装软件包之后手动重启elasticsearch实例。这样做的原因是为了保障, 在集群中更新时，在高流量网络和减少你集群的响应时间的情况下导致分片的重新分配。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="包的目录布局">包的目录布局</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>描述</th>
+      <th>默认路径</th>
+      <th>设置</th>
+      <th> </th>
+      <th> </th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>home</td>
+      <td>Elasticsearch家目录或者$ES_HOME</td>
+      <td>/usr/share/elasticsearch</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>bin</td>
+      <td>二进制脚本，包括elasticsearch去启动一个节点和elasticsearch-plugin安装插件</td>
+      <td>/etc/elasticsearch</td>
+      <td>conf</td>
+      <td>配置文件，包含elasticsearch.yml</td>
+      <td>/etc/elasticsearch</td>
+      <td>ES_PATH_CONF</td>
+    </tr>
+    <tr>
+      <td>conf</td>
+      <td>环境变量，包含 heap 大小，文件描述符。</td>
+      <td>/etc/default/elasticsearch</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>data</td>
+      <td>在节点上分配的每个索引/分片的数据文件的位置。可以容纳多个位置。</td>
+      <td>/var/lib/elasticsearch</td>
+      <td>path.data</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>logs</td>
+      <td>日志文件位置。</td>
+      <td>/var/log/elasticsearch</td>
+      <td>path.logs</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>plugins</td>
+      <td>插件文件位置. 每个插件将包含在一个子目录中.</td>
+      <td>/usr/share/elasticsearch/plugins</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>repo</td>
+      <td>共享文件系统存储库位置。可以容纳多个位置。文件系统存储库可以放置在指定目录中任何子目录中。</td>
+      <td>Not configured</td>
+      <td>path.repo</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="安装-ik-analyzer">安装 ik-analyzer</h1>
+
+<blockquote>
+  <p>注意这里一定要选择和你的es版本匹配的ik版本</p>
+</blockquote>
+
+<h2 id="安装">安装</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/share/elasticsearch/bin/elasticsearch-plugin <span class="nb">install </span>https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.8.6/elasticsearch-analysis-ik-6.8.6.zip
+</code></pre></div></div>
+<blockquote>
+  <p>我的安装过程如下</p>
+</blockquote>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:/etc/nginx/sites-available# /usr/share/elasticsearch/bin/elasticsearch-plugin <span class="nb">install </span>https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.8.6/elasticsearch-analysis-ik-6.8.6.zip
+warning: Falling back to java on path. This behavior is deprecated. Specify JAVA_HOME
+-&gt; Downloading https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.8.6/elasticsearch-analysis-ik-6.8.6.zip
+<span class="o">[=================================================]</span> 100%   
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+<span class="k">*</span> java.net.SocketPermission <span class="k">*</span> connect,resolve
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+<span class="k">for </span>descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? <span class="o">[</span>y/N]y
+-&gt; Installed analysis-ik
+</code></pre></div></div>
+<blockquote>
+  <p>出现以上显示 表示安装成功</p>
+</blockquote>
+
+<h2 id="重启服务">重启服务</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl restart elasticsearch  
+</code></pre></div></div>
+<blockquote>
+  <p>重启之后要等待一下</p>
+</blockquote>
+
+<h2 id="测试">测试</h2>
+
+<h3 id="测试不使用分词">测试不使用分词</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:/var/www/bbs# curl <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span>  <span class="nt">-XGET</span> <span class="s1">'localhost:9200/_analyze?pretty'</span> <span class="nt">-d</span> <span class="s1">'{"text":"北京欢迎你"}'</span> 
+<span class="o">{</span>
+  <span class="s2">"tokens"</span> : <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"北"</span>,
+      <span class="s2">"start_offset"</span> : 0,
+      <span class="s2">"end_offset"</span> : 1,
+      <span class="s2">"type"</span> : <span class="s2">"&lt;IDEOGRAPHIC&gt;"</span>,
+      <span class="s2">"position"</span> : 0
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"京"</span>,
+      <span class="s2">"start_offset"</span> : 1,
+      <span class="s2">"end_offset"</span> : 2,
+      <span class="s2">"type"</span> : <span class="s2">"&lt;IDEOGRAPHIC&gt;"</span>,
+      <span class="s2">"position"</span> : 1
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"欢"</span>,
+      <span class="s2">"start_offset"</span> : 2,
+      <span class="s2">"end_offset"</span> : 3,
+      <span class="s2">"type"</span> : <span class="s2">"&lt;IDEOGRAPHIC&gt;"</span>,
+      <span class="s2">"position"</span> : 2
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"迎"</span>,
+      <span class="s2">"start_offset"</span> : 3,
+      <span class="s2">"end_offset"</span> : 4,
+      <span class="s2">"type"</span> : <span class="s2">"&lt;IDEOGRAPHIC&gt;"</span>,
+      <span class="s2">"position"</span> : 3
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"你"</span>,
+      <span class="s2">"start_offset"</span> : 4,
+      <span class="s2">"end_offset"</span> : 5,
+      <span class="s2">"type"</span> : <span class="s2">"&lt;IDEOGRAPHIC&gt;"</span>,
+      <span class="s2">"position"</span> : 4
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="测试使用分词">测试使用分词</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@JD:/var/www/bbs# curl <span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span>  <span class="nt">-XGET</span> <span class="s1">'localhost:9200/_analyze?pretty'</span> <span class="nt">-d</span> <span class="s1">'{"analyzer":"ik_max_word","text":"北京欢迎你"}'</span>  
+<span class="o">{</span>
+  <span class="s2">"tokens"</span> : <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"北京"</span>,
+      <span class="s2">"start_offset"</span> : 0,
+      <span class="s2">"end_offset"</span> : 2,
+      <span class="s2">"type"</span> : <span class="s2">"CN_WORD"</span>,
+      <span class="s2">"position"</span> : 0
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"欢迎"</span>,
+      <span class="s2">"start_offset"</span> : 2,
+      <span class="s2">"end_offset"</span> : 4,
+      <span class="s2">"type"</span> : <span class="s2">"CN_WORD"</span>,
+      <span class="s2">"position"</span> : 1
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"token"</span> : <span class="s2">"你"</span>,
+      <span class="s2">"start_offset"</span> : 4,
+      <span class="s2">"end_offset"</span> : 5,
+      <span class="s2">"type"</span> : <span class="s2">"CN_CHAR"</span>,
+      <span class="s2">"position"</span> : 2
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#ubuntu"><span class="octicon octicon-tag"></span>&nbsp;ubuntu</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#elasticsearch"><span class="octicon octicon-tag"></span>&nbsp;elasticsearch</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#ik-analyzer"><span class="octicon octicon-tag"></span>&nbsp;ik-analyzer</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/%E7%BD%91%E9%A1%B5%E8%B0%83%E7%94%A8%E5%BE%AE%E4%BF%A1Jssdk%E5%AE%9E%E7%8E%B0%E6%89%AB%E4%B8%80%E6%89%AB%E5%8A%9F%E8%83%BD/">网页调用微信Jssdk实现扫一扫功能</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/%E6%94%B6%E8%97%8F%E7%9A%84%E5%A5%BD%E6%96%87%E9%93%BE%E6%8E%A5(%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0)/">收集的好文链接(长期更新)</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/lnmp/Ubuntu18.04-%E6%90%AD%E5%BB%BA-PHP-%E7%8E%AF%E5%A2%83/">Ubuntu18.04 搭建 PHP 环境</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/Centos-7-%E9%85%8D%E7%BD%AE-supervisor-%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Centos-7-配置-supervisor-遇到的坑</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

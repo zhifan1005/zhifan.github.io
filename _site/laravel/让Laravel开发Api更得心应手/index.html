@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>让Laravel开发Api更得心应手</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="让Laravel开发Api更得心应手, laravel, api,jwt,horizon, renzhifan" />
+    <meta name="description" content="让Laravel开发Api更得心应手, laravel, api,jwt,horizon, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/laravel/%E8%AE%A9Laravel%E5%BC%80%E5%8F%91Api%E6%9B%B4%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>让Laravel开发Api更得心应手</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Dec 6, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#laravel"><span class="octicon octicon-list-unordered"></span>&nbsp;laravel</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#api"><span class="octicon octicon-tag"></span>&nbsp;api</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#jwt"><span class="octicon octicon-tag"></span>&nbsp;jwt</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#horizon"><span class="octicon octicon-tag"></span>&nbsp;horizon</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#1安装laravel" id="markdown-toc-1安装laravel">1.安装Laravel</a></li>
+  <li><a href="#2建立数据库" id="markdown-toc-2建立数据库">2.建立数据库</a></li>
+  <li><a href="#3移动user模型" id="markdown-toc-3移动user模型">3.移动User模型</a>    <ul>
+      <li><a href="#3-1-在app目录下新建models文件夹然后将userphp文件移动进来" id="markdown-toc-3-1-在app目录下新建models文件夹然后将userphp文件移动进来">3-1. 在app目录下新建Models文件夹，然后将User.php文件移动进来。</a></li>
+      <li><a href="#3-2--修改userphp的内容" id="markdown-toc-3-2--修改userphp的内容">3-2.  修改User.php的内容</a></li>
+      <li><a href="#3-3--因为有关于user的命名空间发生了改变所以我们全局搜索appuser将其替换为appmodelsuser我一共搜索到3个文件" id="markdown-toc-3-3--因为有关于user的命名空间发生了改变所以我们全局搜索appuser将其替换为appmodelsuser我一共搜索到3个文件">3-3.  因为有关于User的命名空间发生了改变，所以我们全局搜索App\User,将其替换为App\Models\User我一共搜索到3个文件</a></li>
+    </ul>
+  </li>
+  <li><a href="#4创建对应的控制器路由以及对应的验证器可参考源码" id="markdown-toc-4创建对应的控制器路由以及对应的验证器可参考源码">4.创建对应的控制器路由以及对应的验证器（可参考源码）</a></li>
+  <li><a href="#5生成一批测试数据-可参考我seed里面对应的文件" id="markdown-toc-5生成一批测试数据-可参考我seed里面对应的文件">5.生成一批测试数据 可参考我seed里面对应的文件</a></li>
+  <li><a href="#6跨域问题" id="markdown-toc-6跨域问题">6.跨域问题</a>    <ul>
+      <li><a href="#6-1安装medzcors" id="markdown-toc-6-1安装medzcors">6-1.安装medz/cors</a></li>
+      <li><a href="#6-2发布配置文件" id="markdown-toc-6-2发布配置文件">6-2.发布配置文件</a></li>
+      <li><a href="#6-3-修改配置文件" id="markdown-toc-6-3-修改配置文件">6-3. 修改配置文件</a></li>
+      <li><a href="#6-4增加中间件别名" id="markdown-toc-6-4增加中间件别名">6-4.增加中间件别名</a></li>
+      <li><a href="#6-5-修改路由增加刚才的中间件" id="markdown-toc-6-5-修改路由增加刚才的中间件">6-5. 修改路由(增加刚才的中间件)</a></li>
+    </ul>
+  </li>
+  <li><a href="#7统一response响应处理参考这里" id="markdown-toc-7统一response响应处理参考这里">7.统一Response响应处理参考这里</a></li>
+  <li><a href="#8创建自定义异常处理" id="markdown-toc-8创建自定义异常处理">8.创建自定义异常处理</a></li>
+  <li><a href="#9捕捉异常" id="markdown-toc-9捕捉异常">9.捕捉异常</a></li>
+  <li><a href="#10jwt-auth" id="markdown-toc-10jwt-auth">10.jwt-auth</a>    <ul>
+      <li><a href="#10-1-安装" id="markdown-toc-10-1-安装">10-1. 安装</a></li>
+      <li><a href="#10-2配置" id="markdown-toc-10-2配置">10-2.配置</a></li>
+      <li><a href="#10-3-添加服务提供商-打开-config-目录下的-appphp文件添加下面代码" id="markdown-toc-10-3-添加服务提供商-打开-config-目录下的-appphp文件添加下面代码">10-3. 添加服务提供商 打开 config 目录下的 app.php文件，添加下面代码</a></li>
+      <li><a href="#10-4-发布配置文件" id="markdown-toc-10-4-发布配置文件">10-4. 发布配置文件</a></li>
+      <li><a href="#10-5-生成密钥" id="markdown-toc-10-5-生成密钥">10-5. 生成密钥</a></li>
+      <li><a href="#10-6-配置-auth-guard" id="markdown-toc-10-6-配置-auth-guard">10-6. 配置 Auth guard</a></li>
+      <li><a href="#10-7-更改-model" id="markdown-toc-10-7-更改-model">10-7. 更改 Model</a></li>
+      <li><a href="#10-8-配置项详解" id="markdown-toc-10-8-配置项详解">10-8. 配置项详解</a></li>
+    </ul>
+  </li>
+  <li><a href="#11-自动刷新用户认证" id="markdown-toc-11-自动刷新用户认证">11. 自动刷新用户认证</a>    <ul>
+      <li><a href="#11-1自定义认证中间件" id="markdown-toc-11-1自定义认证中间件">11-1.自定义认证中间件</a></li>
+      <li><a href="#11-2-打开-apphttpmiddlewareapi-目录下的-refreshtokenmiddlewarephp-文件填写以下内容" id="markdown-toc-11-2-打开-apphttpmiddlewareapi-目录下的-refreshtokenmiddlewarephp-文件填写以下内容">11-2. 打开 app/Http/Middleware/Api 目录下的 RefreshTokenMiddleware.php 文件，填写以下内容</a></li>
+      <li><a href="#11-3增加中间件别名" id="markdown-toc-11-3增加中间件别名">11-3.增加中间件别名</a></li>
+      <li><a href="#11-4单一设备登陆" id="markdown-toc-11-4单一设备登陆">11-4.单一设备登陆</a></li>
+      <li><a href="#11-5修改-apphttpcontrollersapiadmincontrollerphp-中的-login方法在登陆的时候拉黑上一个token" id="markdown-toc-11-5修改-apphttpcontrollersapiadmincontrollerphp-中的-login方法在登陆的时候拉黑上一个token">11-5.修改 app\Http\Controllers\Api\AdminController.php 中的 login方法，在登陆的时候，拉黑上一个token。</a></li>
+      <li><a href="#11-6-再修改中间件apphttpmiddlewareapirefreshadmintokenmiddlewarephp-更新的token加到last_token" id="markdown-toc-11-6-再修改中间件apphttpmiddlewareapirefreshadmintokenmiddlewarephp-更新的token加到last_token">11-6. 再修改中间件app/Http/Middleware/Api/RefreshAdminTokenMiddleware.php ，更新的token加到last_token</a></li>
+    </ul>
+  </li>
+  <li><a href="#12horizon管理异步队列" id="markdown-toc-12horizon管理异步队列">12.horizon管理异步队列</a>    <ul>
+      <li><a href="#12-1修改队列驱动" id="markdown-toc-12-1修改队列驱动">12-1.修改队列驱动</a></li>
+      <li><a href="#12-2编写任务类" id="markdown-toc-12-2编写任务类">12-2.编写任务类</a></li>
+      <li><a href="#12-3打开-appjobsapisavelasttokenjobphp-文件-填写以下内容" id="markdown-toc-12-3打开-appjobsapisavelasttokenjobphp-文件-填写以下内容">12-3.打开 app/Jobs/Api/SaveLastTokenJob.php 文件 ，填写以下内容</a></li>
+      <li><a href="#12-4-使用任务类" id="markdown-toc-12-4-使用任务类">12-4. 使用任务类</a></li>
+      <li><a href="#12-5-运行horizon" id="markdown-toc-12-5-运行horizon">12-5. 运行Horizon</a></li>
+    </ul>
+  </li>
+  <li><a href="#13supervisor守护进程-可参考我的文章centos-7-配置-supervisor-遇到的坑" id="markdown-toc-13supervisor守护进程-可参考我的文章centos-7-配置-supervisor-遇到的坑">13.Supervisor守护进程 （可参考我的文章）Centos-7-配置-supervisor-遇到的坑</a></li>
+</ul>
+
+<hr />
+
+<h3 id="前言">前言</h3>
+<p>先把源码扔出来 可进行对比参考 <a href="https://github.com/renzhifan/laravelApi">手摸手教你让Laravel开发Api更得心应手</a></p>
+
+<hr />
+<h2 id="1安装laravel">1.安装Laravel</h2>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+laravel new laravelApi (这里我使用的laravel安装器 默认安装最新版本)
+如果要安装指定版本的话建议使用composer
+composer create-project laravel/laravel Laravel --prefer-dist "6.0.*"
+
+</code></pre></div></div>
+
+<h2 id="2建立数据库">2.建立数据库</h2>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">php</span> <span class="nx">artisan</span> <span class="nx">make</span><span class="o">:</span><span class="nx">migration</span> <span class="nx">create_users_table</span><span class="p">(</span><span class="nx">里面内容可参考我对应的文件</span><span class="p">)</span>
+
+</code></pre></div></div>
+<h2 id="3移动user模型">3.移动User模型</h2>
+
+<h3 id="3-1-在app目录下新建models文件夹然后将userphp文件移动进来">3-1. 在app目录下新建Models文件夹，然后将User.php文件移动进来。</h3>
+
+<h3 id="3-2--修改userphp的内容">3-2.  修改User.php的内容</h3>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Models</span><span class="p">;</span> <span class="c1">//这里从App改成了App\Models</span>
+
+<span class="k">use</span> <span class="nx">Illuminate\Notifications\Notifiable</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Foundation\Auth\User</span> <span class="k">as</span> <span class="nx">Authenticatable</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="k">extends</span> <span class="nx">Authenticatable</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">Notifiable</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'users'</span><span class="p">;</span>
+
+     <span class="c1">//去掉我创建的数据表没有的字段</span>
+    <span class="k">protected</span> <span class="nv">$fillable</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'password'</span>
+    <span class="p">];</span>
+
+     <span class="c1">//去掉我创建的数据表没有的字段</span>
+    <span class="k">protected</span> <span class="nv">$hidden</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'password'</span>
+    <span class="p">];</span>
+    <span class="c1">//将密码进行加密</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setPasswordAttribute</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">[</span><span class="s1">'password'</span><span class="p">]</span> <span class="o">=</span> <span class="nx">bcrypt</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h3 id="3-3--因为有关于user的命名空间发生了改变所以我们全局搜索appuser将其替换为appmodelsuser我一共搜索到3个文件">3-3.  因为有关于User的命名空间发生了改变，所以我们全局搜索App\User,将其替换为App\Models\User我一共搜索到3个文件</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>app/Http/Controllers/Auth 目录下的 RegisterController.php
+config 目录下的 services.php
+config 目录下的 auth.php
+database/factories 目录下的 UserFactory.php
+
+</code></pre></div></div>
+<h2 id="4创建对应的控制器路由以及对应的验证器可参考源码">4.创建对应的控制器路由以及对应的验证器（可参考源码）</h2>
+
+<h2 id="5生成一批测试数据-可参考我seed里面对应的文件">5.生成一批测试数据 可参考我seed里面对应的文件</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php artisan db:seed;
+</code></pre></div></div>
+
+<h2 id="6跨域问题">6.跨域问题</h2>
+<h3 id="6-1安装medzcors">6-1.安装medz/cors</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require medz/cors
+
+</code></pre></div></div>
+
+<h3 id="6-2发布配置文件">6-2.发布配置文件</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+php artisan vendor:publish --provider="Medz\Cors\Laravel\Providers\LaravelServiceProvider" --force
+
+</code></pre></div></div>
+
+<h3 id="6-3-修改配置文件">6-3. 修改配置文件</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return [
+    ......
+    'expose-headers'     =&gt; ['Authorization'],
+    ......
+];
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>这样跨域请求时，才能返回header头为Authorization的内容，否则在刷新用户token时不会返回刷新后的token</p>
+</blockquote>
+
+<h3 id="6-4增加中间件别名">6-4.增加中间件别名</h3>
+
+<p>打开App\Http下的Kernel文件</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$routeMiddleware</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'auth'</span> <span class="o">=&gt;</span> <span class="nx">\App\Http\Middleware\Authenticate</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'auth.basic'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Auth\Middleware\AuthenticateWithBasicAuth</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'bindings'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Routing\Middleware\SubstituteBindings</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'cache.headers'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Http\Middleware\SetCacheHeaders</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'can'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Auth\Middleware\Authorize</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'guest'</span> <span class="o">=&gt;</span> <span class="nx">\App\Http\Middleware\RedirectIfAuthenticated</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'password.confirm'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Auth\Middleware\RequirePassword</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'signed'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Routing\Middleware\ValidateSignature</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'throttle'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Routing\Middleware\ThrottleRequests</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="s1">'verified'</span> <span class="o">=&gt;</span> <span class="nx">\Illuminate\Auth\Middleware\EnsureEmailIsVerified</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+        <span class="o">......</span> <span class="c1">//前面的中间件</span>
+        <span class="s1">'cors'</span><span class="o">=&gt;</span> <span class="nx">\Medz\Cors\Laravel\Middleware\ShouldGroup</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="6-5-修改路由增加刚才的中间件">6-5. 修改路由(增加刚才的中间件)</h3>
+
+<h2 id="7统一response响应处理参考这里">7.统一Response响应处理<a href="https://learnku.com/articles/6035/laravel55-developing-api-combat">参考这里</a></h2>
+<p>也可以把我对应的文件直接复制过去</p>
+
+<h2 id="8创建自定义异常处理">8.创建自定义异常处理</h2>
+<p>在 app/Api/Helpers 目录下新建 ExceptionReport.php 文件（对应内容填写我对应的文件里面的）</p>
+
+<h2 id="9捕捉异常">9.捕捉异常</h2>
+
+<blockquote>
+  <p>修改 app/Exceptions 目录下的 Handler.php 文件</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Exceptions</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Api\Helpers\ExceptionReport</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Exception</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Foundation\Exceptions\Handler</span> <span class="k">as</span> <span class="nx">ExceptionHandler</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Handler</span> <span class="k">extends</span> <span class="nx">ExceptionHandler</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nx">Exception</span> <span class="nv">$exception</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">//ajax请求我们才捕捉异常</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">ajax</span><span class="p">()){</span>
+            <span class="c1">// 将方法拦截到自己的ExceptionReport</span>
+            <span class="nv">$reporter</span> <span class="o">=</span> <span class="nx">ExceptionReport</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="nv">$exception</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$reporter</span><span class="o">-&gt;</span><span class="na">shouldReturn</span><span class="p">()){</span>
+                <span class="k">return</span> <span class="nv">$reporter</span><span class="o">-&gt;</span><span class="na">report</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">env</span><span class="p">(</span><span class="s1">'APP_DEBUG'</span><span class="p">)){</span>
+                <span class="c1">//开发环境，则显示详细错误信息</span>
+                <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$exception</span><span class="p">);</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="c1">//线上环境,未知错误，则显示500</span>
+                <span class="k">return</span> <span class="nv">$reporter</span><span class="o">-&gt;</span><span class="na">prodReport</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">render</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nv">$exception</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="10jwt-auth">10.jwt-auth</h2>
+<blockquote>
+  <p>在传统web中，我们一般是使用session来判定一个用户的登陆状态。而在API开发中，我们使用的是token。jwt-token是Laravel开发API用的比较多的。</p>
+</blockquote>
+
+<blockquote>
+  <p>jwt-auth的详细介绍分析可以看<a href="https://learnku.com/articles/17883">JWT超详细分析</a>这篇文章，具体使用可以看<a href="https://learnku.com/articles/10885/full-use-of-jwt">JWT完整使用详解</a> 这篇文章。</p>
+</blockquote>
+
+<h3 id="10-1-安装">10-1. 安装</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   composer require tymon/jwt-auth 1.0.0-rc.5
+   如果是Laravel5.5版本，则安装rc.1。如果是Laravel5.6版本，则安装rc.2。我这里安装的最新rc.5版本
+</code></pre></div></div>
+<h3 id="10-2配置">10-2.配置</h3>
+<blockquote>
+  <p>配置参考来自使用 <a href="https://learnku.com/articles/7264/using-jwt-auth-to-implement-api-user-authentication-and-painless-refresh-access-token">Jwt-Auth 实现 API 用户认证以及无痛刷新访问令牌</a></p>
+</blockquote>
+
+<h3 id="10-3-添加服务提供商-打开-config-目录下的-appphp文件添加下面代码">10-3. 添加服务提供商 打开 config 目录下的 app.php文件，添加下面代码</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   'providers' =&gt; [
+   
+       ...
+   
+       Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+   ]
+</code></pre></div></div>
+
+<h3 id="10-4-发布配置文件">10-4. 发布配置文件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
+
+</code></pre></div></div>
+<blockquote>
+  <p>此命令会在 config 目录下生成一个 jwt.php 配置文件，你可以在此进行自定义配置。</p>
+</blockquote>
+
+<h3 id="10-5-生成密钥">10-5. 生成密钥</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  php artisan jwt:secret
+
+</code></pre></div></div>
+<blockquote>
+  <p>此命令会在你的 .env 文件中新增一行 JWT_SECRET=secret。以此来作为加密时使用的秘钥。</p>
+</blockquote>
+
+<h3 id="10-6-配置-auth-guard">10-6. 配置 Auth guard</h3>
+
+<blockquote>
+  <p>打开 config 目录下的 auth.php文件，修改为下面代码</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 'guards' =&gt; [
+     'web' =&gt; [
+         'driver' =&gt; 'session',
+         'provider' =&gt; 'users',
+     ],
+ 
+     'api' =&gt; [
+        'driver' =&gt; 'jwt',
+        'provider' =&gt; 'users',
+     ],
+ ],
+</code></pre></div></div>
+
+<blockquote>
+  <p>这样，我们就能让api的用户认证变成使用jwt。</p>
+</blockquote>
+
+<h3 id="10-7-更改-model">10-7. 更改 Model</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;?php
+ 
+ namespace App\Models;
+ 
+ use Illuminate\Notifications\Notifiable;
+ use Illuminate\Foundation\Auth\User as Authenticatable;
+ use Tymon\JWTAuth\Contracts\JWTSubject;
+ 
+ class User extends Authenticatable implements JWTSubject
+ {
+     use Notifiable;
+ 
+     public function getJWTIdentifier()
+     {
+         return $this-&gt;getKey();
+     }
+ 
+     public function getJWTCustomClaims()
+     {
+         return [];
+     }
+    ......
+ }
+ 
+</code></pre></div></div>
+
+<h3 id="10-8-配置项详解">10-8. 配置项详解</h3>
+
+<blockquote>
+  <p>config目录下的jwt.php文件配置详解</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">&lt;?php</span>
+  
+  <span class="k">return</span> <span class="p">[</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | JWT Authentication Secret
+      |--------------------------------------------------------------------------
+      |
+      | 用于加密生成 token 的 secret
+      |
+      */</span>
+  
+      <span class="s1">'secret'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_SECRET'</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | JWT Authentication Keys
+      |--------------------------------------------------------------------------
+      |
+      | 如果你在 .env 文件中定义了 JWT_SECRET 的随机字符串
+      | 那么 jwt 将会使用 对称算法 来生成 token
+      | 如果你没有定有，那么jwt 将会使用如下配置的公钥和私钥来生成 token
+      |
+      */</span>
+  
+      <span class="s1">'keys'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | Public Key
+          |--------------------------------------------------------------------------
+          |
+          | 公钥
+          |
+          */</span>
+  
+          <span class="s1">'public'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_PUBLIC_KEY'</span><span class="p">),</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | Private Key
+          |--------------------------------------------------------------------------
+          |
+          | 私钥
+          |
+          */</span>
+  
+          <span class="s1">'private'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_PRIVATE_KEY'</span><span class="p">),</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | Passphrase
+          |--------------------------------------------------------------------------
+          |
+          | 私钥的密码。 如果没有设置，可以为 null。
+          |
+          */</span>
+  
+          <span class="s1">'passphrase'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_PASSPHRASE'</span><span class="p">),</span>
+  
+      <span class="p">],</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | JWT time to live
+      |--------------------------------------------------------------------------
+      |
+      | 指定 access_token 有效的时间长度（以分钟为单位），默认为1小时，您也可以将其设置为空，以产生永不过期的标记
+      |
+      */</span>
+  
+      <span class="s1">'ttl'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_TTL'</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | Refresh time to live
+      |--------------------------------------------------------------------------
+      |
+      | 指定 access_token 可刷新的时间长度（以分钟为单位）。默认的时间为 2 周。
+      | 大概意思就是如果用户有一个 access_token，那么他可以带着他的 access_token 
+      | 过来领取新的 access_token，直到 2 周的时间后，他便无法继续刷新了，需要重新登录。
+      |
+      */</span>
+  
+      <span class="s1">'refresh_ttl'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_REFRESH_TTL'</span><span class="p">,</span> <span class="mi">20160</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | JWT hashing algorithm
+      |--------------------------------------------------------------------------
+      |
+      | 指定将用于对令牌进行签名的散列算法。
+      |
+      */</span>
+  
+      <span class="s1">'algo'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_ALGO'</span><span class="p">,</span> <span class="s1">'HS256'</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | Required Claims
+      |--------------------------------------------------------------------------
+      |
+      | 指定必须存在于任何令牌中的声明。
+      | 
+      |
+      */</span>
+  
+      <span class="s1">'required_claims'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="s1">'iss'</span><span class="p">,</span>
+          <span class="s1">'iat'</span><span class="p">,</span>
+          <span class="s1">'exp'</span><span class="p">,</span>
+          <span class="s1">'nbf'</span><span class="p">,</span>
+          <span class="s1">'sub'</span><span class="p">,</span>
+          <span class="s1">'jti'</span><span class="p">,</span>
+      <span class="p">],</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | Persistent Claims
+      |--------------------------------------------------------------------------
+      |
+      | 指定在刷新令牌时要保留的声明密钥。
+      |
+      */</span>
+  
+      <span class="s1">'persistent_claims'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+          <span class="c1">// 'foo',</span>
+          <span class="c1">// 'bar',</span>
+      <span class="p">],</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | Blacklist Enabled
+      |--------------------------------------------------------------------------
+      |
+      | 为了使令牌无效，您必须启用黑名单。
+      | 如果您不想或不需要此功能，请将其设置为 false。
+      |
+      */</span>
+  
+      <span class="s1">'blacklist_enabled'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_BLACKLIST_ENABLED'</span><span class="p">,</span> <span class="kc">true</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      | -------------------------------------------------------------------------
+      | Blacklist Grace Period
+      | -------------------------------------------------------------------------
+      |
+      | 当多个并发请求使用相同的JWT进行时，
+      | 由于 access_token 的刷新 ，其中一些可能会失败
+      | 以秒为单位设置请求时间以防止并发的请求失败。
+      |
+      */</span>
+  
+      <span class="s1">'blacklist_grace_period'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'JWT_BLACKLIST_GRACE_PERIOD'</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+  
+      <span class="cm">/*
+      |--------------------------------------------------------------------------
+      | Providers
+      |--------------------------------------------------------------------------
+      |
+      | 指定整个包中使用的各种提供程序。
+      |
+      */</span>
+  
+      <span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | JWT Provider
+          |--------------------------------------------------------------------------
+          |
+          | 指定用于创建和解码令牌的提供程序。
+          |
+          */</span>
+  
+          <span class="s1">'jwt'</span> <span class="o">=&gt;</span> <span class="nx">Tymon\JWTAuth\Providers\JWT\Namshi</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | Authentication Provider
+          |--------------------------------------------------------------------------
+          |
+          | 指定用于对用户进行身份验证的提供程序。
+          |
+          */</span>
+  
+          <span class="s1">'auth'</span> <span class="o">=&gt;</span> <span class="nx">Tymon\JWTAuth\Providers\Auth\Illuminate</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+  
+          <span class="cm">/*
+          |--------------------------------------------------------------------------
+          | Storage Provider
+          |--------------------------------------------------------------------------
+          |
+          | 指定用于在黑名单中存储标记的提供程序。
+          |
+          */</span>
+  
+          <span class="s1">'storage'</span> <span class="o">=&gt;</span> <span class="nx">Tymon\JWTAuth\Providers\Storage\Illuminate</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+  
+      <span class="p">],</span>
+  
+  <span class="p">];</span>
+  
+</code></pre></div></div>
+
+<h2 id="11-自动刷新用户认证">11. 自动刷新用户认证</h2>
+<h3 id="11-1自定义认证中间件">11-1.自定义认证中间件</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   
+   php artisan make:middleware Api/RefreshTokenMiddleware
+   
+</code></pre></div></div>
+<h3 id="11-2-打开-apphttpmiddlewareapi-目录下的-refreshtokenmiddlewarephp-文件填写以下内容">11-2. 打开 app/Http/Middleware/Api 目录下的 RefreshTokenMiddleware.php 文件，填写以下内容</h3>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">&lt;?php</span>
+  
+  <span class="k">namespace</span> <span class="nx">App\Http\Middleware\Api</span><span class="p">;</span>
+  
+  <span class="k">use</span> <span class="nx">Auth</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Closure</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Tymon\JWTAuth\Exceptions\JWTException</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Tymon\JWTAuth\Facades\JWTAuth</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Tymon\JWTAuth\Http\Middleware\BaseMiddleware</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Tymon\JWTAuth\Exceptions\TokenExpiredException</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException</span><span class="p">;</span>
+  
+  <span class="c1">// 注意，我们要继承的是 jwt 的 BaseMiddleware</span>
+  <span class="k">class</span> <span class="nc">RefreshTokenMiddleware</span> <span class="k">extends</span> <span class="nx">BaseMiddleware</span>
+  <span class="p">{</span>
+      <span class="sd">/**
+       * Handle an incoming request.
+       *
+       * @param  \Illuminate\Http\Request $request
+       * @param  \Closure $next
+       *
+       * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+       *
+       * @return mixed
+       */</span>
+      <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">$request</span><span class="p">,</span> <span class="nx">Closure</span> <span class="nv">$next</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="c1">// 检查此次请求中是否带有 token，如果没有则抛出异常。</span>
+          <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">checkForToken</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+  <span class="c1">//         使用 try 包裹，以捕捉 token 过期所抛出的 TokenExpiredException  异常</span>
+          <span class="k">try</span> <span class="p">{</span>
+              <span class="c1">// 检测用户的登录状态，如果正常则通过</span>
+              <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="o">-&gt;</span><span class="na">parseToken</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">authenticate</span><span class="p">())</span> <span class="p">{</span>
+                  <span class="k">return</span> <span class="nv">$next</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+              <span class="p">}</span>
+              <span class="k">throw</span> <span class="k">new</span> <span class="nx">UnauthorizedHttpException</span><span class="p">(</span><span class="s1">'jwt-auth'</span><span class="p">,</span> <span class="s1">'未登录'</span><span class="p">);</span>
+          <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">TokenExpiredException</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+              <span class="c1">// 此处捕获到了 token 过期所抛出的 TokenExpiredException 异常，我们在这里需要做的是刷新该用户的 token 并将它添加到响应头中</span>
+              <span class="k">try</span> <span class="p">{</span>
+                  <span class="c1">// 刷新用户的 token</span>
+                  <span class="nv">$token</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="o">-&gt;</span><span class="na">refresh</span><span class="p">();</span>
+                  <span class="c1">// 使用一次性登录以保证此次请求的成功</span>
+                  <span class="nx">Auth</span><span class="o">::</span><span class="na">guard</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">onceUsingId</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">auth</span><span class="o">-&gt;</span><span class="na">manager</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getPayloadFactory</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">buildClaimsCollection</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toPlainArray</span><span class="p">()[</span><span class="s1">'sub'</span><span class="p">]);</span>
+              <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">JWTException</span> <span class="nv">$exception</span><span class="p">)</span> <span class="p">{</span>
+                  <span class="c1">// 如果捕获到此异常，即代表 refresh 也过期了，用户无法刷新令牌，需要重新登录。</span>
+                  <span class="k">throw</span> <span class="k">new</span> <span class="nx">UnauthorizedHttpException</span><span class="p">(</span><span class="s1">'jwt-auth'</span><span class="p">,</span> <span class="nv">$exception</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">());</span>
+              <span class="p">}</span>
+          <span class="p">}</span>
+  
+          <span class="c1">// 在响应头中返回新的 token</span>
+          <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setAuthenticationHeader</span><span class="p">(</span><span class="nv">$next</span><span class="p">(</span><span class="nv">$request</span><span class="p">),</span> <span class="nv">$token</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<h3 id="11-3增加中间件别名">11-3.增加中间件别名</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  protected $routeMiddleware = [
+      ......
+      'api.refresh'=&gt;\App\Http\Middleware\Api\RefreshTokenMiddleware::class,
+  ];
+</code></pre></div></div>
+
+<h3 id="11-4单一设备登陆">11-4.单一设备登陆</h3>
+<blockquote>
+  <p>同一时间只允许登录唯一一台设备。例如设备 A 中用户如果已经登录，那么使用设备 B 登录同一账户，设备 A 就无法继续使用了。</p>
+</blockquote>
+
+<blockquote>
+  <p>我们在登陆，token过期自动更换的时候，都会产生一个新的token。
+ 我们将token都存到表中的last_token字段。在登陆接口，获取到last_token里的值，将其加入黑名单。
+ 这样，只要我们无论在哪里登陆，之前的token一定会被拉黑失效，必须重新登陆，我们的目的也就达到了。</p>
+</blockquote>
+
+<h3 id="11-5修改-apphttpcontrollersapiadmincontrollerphp-中的-login方法在登陆的时候拉黑上一个token">11-5.修改 app\Http\Controllers\Api\AdminController.php 中的 login方法，在登陆的时候，拉黑上一个token。</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//用户登录</span>
+       <span class="k">public</span> <span class="k">function</span> <span class="nf">login</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+       <span class="p">{</span>
+           <span class="nv">$token</span> <span class="o">=</span> <span class="nx">Auth</span><span class="o">::</span><span class="na">guard</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">attempt</span><span class="p">([</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span> <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">]);</span>
+           <span class="k">if</span> <span class="p">(</span><span class="nv">$token</span><span class="p">)</span> <span class="p">{</span>
+               <span class="c1">//如果登陆，先检查原先是否有存token，有的话先失效，然后再存入最新的token</span>
+               <span class="nv">$user</span> <span class="o">=</span> <span class="nx">Auth</span><span class="o">::</span><span class="na">guard</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">();</span>
+               <span class="k">if</span> <span class="p">(</span><span class="nv">$user</span><span class="p">[</span><span class="s1">'last_token'</span><span class="p">])</span> <span class="p">{</span>
+                   <span class="k">try</span><span class="p">{</span>
+                       <span class="nx">Auth</span><span class="o">::</span><span class="na">guard</span><span class="p">(</span><span class="s1">'api'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setToken</span><span class="p">(</span><span class="nv">$user</span><span class="p">[</span><span class="s1">'last_token'</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">invalidate</span><span class="p">();</span>
+                   <span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="nx">TokenExpiredException</span> <span class="nv">$e</span><span class="p">){</span>
+                       <span class="c1">//因为让一个过期的token再失效，会抛出异常，所以我们捕捉异常，不需要做任何处理</span>
+                   <span class="p">}</span>
+               <span class="p">}</span>
+               <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">last_token</span> <span class="o">=</span> <span class="nv">$token</span><span class="p">;</span>
+               <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>  
+               <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setStatusCode</span><span class="p">(</span><span class="mi">201</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">success</span><span class="p">([</span><span class="s1">'token'</span> <span class="o">=&gt;</span> <span class="s1">'bearer '</span> <span class="o">.</span> <span class="nv">$token</span><span class="p">]);</span>
+           <span class="p">}</span>
+           <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">failed</span><span class="p">(</span><span class="s1">'账号或密码错误'</span><span class="p">,</span> <span class="mi">400</span><span class="p">);</span>
+       <span class="p">}</span>
+       
+</code></pre></div></div>
+<h3 id="11-6-再修改中间件apphttpmiddlewareapirefreshadmintokenmiddlewarephp-更新的token加到last_token">11-6. 再修改中间件app/Http/Middleware/Api/RefreshAdminTokenMiddleware.php ，更新的token加到last_token</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   ......
+   
+   try {
+               // 检测用户的登录状态，如果正常则通过
+               if ($this-&gt;auth-&gt;parseToken()-&gt;authenticate()) {
+                   return $next($request);
+               }
+               throw new UnauthorizedHttpException('jwt-auth', '未登录');
+           } catch (TokenExpiredException $exception) {
+               // 3. 此处捕获到了 token 过期所抛出的 TokenExpiredException 异常，我们在这里需要做的是刷新该用户的 token 并将它添加到响应头中
+               try {
+                   // 刷新用户的 token
+                   $token = $this-&gt;auth-&gt;refresh();
+                   // 使用一次性登录以保证此次请求的成功
+                   Auth::onceUsingId($this-&gt;auth-&gt;manager()-&gt;getPayloadFactory()-&gt;buildClaimsCollection()-&gt;toPlainArray()['sub']);
+                   //刷新了token，将token存入数据库
+                   $user = Auth::user();
+                   $user-&gt;last_token = $token;
+                   $user-&gt;save();
+               } catch (JWTException $exception) {
+                   // 如果捕获到此异常，即代表 refresh 也过期了，用户无法刷新令牌，需要重新登录。
+                   throw new UnauthorizedHttpException('jwt-auth', $exception-&gt;getMessage());
+               }
+           }
+           
+     ......
+</code></pre></div></div>
+
+<h2 id="12horizon管理异步队列">12.horizon管理异步队列</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+composer require laravel/horizon
+
+
+php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider"
+
+composer require predis/predis
+</code></pre></div></div>
+<h3 id="12-1修改队列驱动">12-1.修改队列驱动</h3>
+<blockquote>
+  <p>在.env配置里面 修改 
+QUEUE_CONNECTION=redis
+并加上REDIS_CLIENT=predis</p>
+</blockquote>
+
+<h3 id="12-2编写任务类">12-2.编写任务类</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  php artisan make:job Api/SaveLastTokenJob
+
+</code></pre></div></div>
+<h3 id="12-3打开-appjobsapisavelasttokenjobphp-文件-填写以下内容">12-3.打开 app/Jobs/Api/SaveLastTokenJob.php 文件 ，填写以下内容</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cp">&lt;?php</span>
+  
+  <span class="k">namespace</span> <span class="nx">App\Jobs\Api</span><span class="p">;</span>
+  
+  <span class="k">use</span> <span class="nx">Illuminate\Bus\Queueable</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Illuminate\Queue\SerializesModels</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Illuminate\Queue\InteractsWithQueue</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Illuminate\Contracts\Queue\ShouldQueue</span><span class="p">;</span>
+  <span class="k">use</span> <span class="nx">Illuminate\Foundation\Bus\Dispatchable</span><span class="p">;</span>
+  
+  <span class="k">class</span> <span class="nc">SaveLastTokenJob</span> <span class="k">implements</span> <span class="nx">ShouldQueue</span>
+  <span class="p">{</span>
+      <span class="k">use</span> <span class="nx">Dispatchable</span><span class="p">,</span> <span class="nx">InteractsWithQueue</span><span class="p">,</span> <span class="nx">Queueable</span><span class="p">,</span> <span class="nx">SerializesModels</span><span class="p">;</span>
+      <span class="k">protected</span> <span class="nv">$model</span><span class="p">;</span>
+      <span class="k">protected</span> <span class="nv">$token</span><span class="p">;</span>
+  
+      <span class="sd">/**
+       * SaveLastTokenJob constructor.
+       * @param $model
+       * @param $token
+       */</span>
+  
+      <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$model</span><span class="p">,</span><span class="nv">$token</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="c1">//</span>
+          <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span><span class="o">=</span><span class="nv">$model</span><span class="p">;</span>
+          <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">token</span><span class="o">=</span><span class="nv">$token</span><span class="p">;</span>
+      <span class="p">}</span>
+  
+      <span class="sd">/**
+       * Execute the job.
+       *
+       * @return void
+       */</span>
+      <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">()</span>
+      <span class="p">{</span>
+          <span class="nv">$user</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span><span class="p">;</span>
+          <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">last_token</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">token</span><span class="p">;</span>
+          <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+  
+</code></pre></div></div>
+
+<h3 id="12-4-使用任务类">12-4. 使用任务类</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   SaveLastTokenJob::dispatch($user,$token);
+
+</code></pre></div></div>
+<h3 id="12-5-运行horizon">12-5. 运行Horizon</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   php artisan horizon
+   
+</code></pre></div></div>
+<h2 id="13supervisor守护进程-可参考我的文章centos-7-配置-supervisor-遇到的坑">13.Supervisor守护进程 （可参考我的文章）<a href="https://renzhifan.github.io/tool/Centos-7-%E9%85%8D%E7%BD%AE-supervisor-%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">Centos-7-配置-supervisor-遇到的坑</a></h2>
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#api"><span class="octicon octicon-tag"></span>&nbsp;api</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#jwt"><span class="octicon octicon-tag"></span>&nbsp;jwt</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#horizon"><span class="octicon octicon-tag"></span>&nbsp;horizon</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/laravel%E9%9B%86%E6%88%90%E5%BE%AE%E4%BF%A1%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">laravel集成微信第三方登录</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/laravel5-5-%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9C/">laravel5.5 动态切换多语言操作</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

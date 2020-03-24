@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>在 Laravel 中集成 Swoole 实现 WebSocket 服务器</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="在 Laravel 中集成 Swoole 实现 WebSocket 服务器, swoole, swoole,laravel,websocket, renzhifan" />
+    <meta name="description" content="在 Laravel 中集成 Swoole 实现 WebSocket 服务器, swoole, swoole,laravel,websocket, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/swoole/%E5%9C%A8-Laravel-%E4%B8%AD%E9%9B%86%E6%88%90-Swoole-%E5%AE%9E%E7%8E%B0-WebSocket-%E6%9C%8D%E5%8A%A1%E5%99%A8/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>在 Laravel 中集成 Swoole 实现 WebSocket 服务器</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Dec 10, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#swoole"><span class="octicon octicon-list-unordered"></span>&nbsp;swoole</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#swoole"><span class="octicon octicon-tag"></span>&nbsp;swoole</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#laravel"><span class="octicon octicon-tag"></span>&nbsp;laravel</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#websocket"><span class="octicon octicon-tag"></span>&nbsp;websocket</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#1创建-appserviceswebsocketservicephp文件" id="markdown-toc-1创建-appserviceswebsocketservicephp文件">1.创建 App/Services/WebSocketService.php文件</a></li>
+  <li><a href="#2-更改配置configlaravelsphp" id="markdown-toc-2-更改配置configlaravelsphp">2. 更改配置config/laravels.php</a></li>
+  <li><a href="#3-配置-nginx-支持-websocket" id="markdown-toc-3-配置-nginx-支持-websocket">3. 配置 Nginx 支持 WebSocket</a></li>
+  <li><a href="#4重载配置并重启laravels服务" id="markdown-toc-4重载配置并重启laravels服务">4.重载配置并重启Laravels服务</a></li>
+  <li><a href="#5配置wss服务" id="markdown-toc-5配置wss服务">5.配置wss服务</a></li>
+  <li><a href="#6配置测试页面" id="markdown-toc-6配置测试页面">6.配置测试页面</a>    <ul>
+      <li><a href="#6-1-在webphp新增路由" id="markdown-toc-6-1-在webphp新增路由">6-1 在web.php新增路由</a></li>
+      <li><a href="#6-2-在resourcesviews新增wsbladephp" id="markdown-toc-6-2-在resourcesviews新增wsbladephp">6-2 在resources/views新增ws.blade.php</a></li>
+      <li><a href="#6-3-在页面测试如下" id="markdown-toc-6-3-在页面测试如下">6-3 在页面测试如下</a></li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p><strong><em>在 Laravel 中集成 Swoole 实现 WebSocket 服务器</em></strong></p>
+</blockquote>
+
+<hr />
+<h2 id="1创建-appserviceswebsocketservicephp文件">1.创建 App/Services/WebSocketService.php文件</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+<span class="k">namespace</span> <span class="nx">App\Services</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Hhxsv5\LaravelS\Swoole\WebSocketHandlerInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Support\Facades\Log</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\WebSocket\Frame</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Swoole\WebSocket\Server</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">WebSocketService</span> <span class="k">implements</span> <span class="nx">WebSocketHandlerInterface</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+    <span class="p">{</span>
+
+    <span class="p">}</span>
+
+    <span class="c1">// 连接建立时触发</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">onOpen</span><span class="p">(</span><span class="nx">Server</span> <span class="nv">$server</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 在触发 WebSocket 连接建立事件之前，Laravel 应用初始化的生命周期已经结束，你可以在这里获取 Laravel 请求和会话数据</span>
+        <span class="c1">// 调用 push 方法向客户端推送数据，fd 是客户端连接标识字段</span>
+        <span class="nx">Log</span><span class="o">::</span><span class="na">info</span><span class="p">(</span><span class="s1">'WebSocket 连接建立'</span><span class="p">);</span>
+        <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">fd</span><span class="p">,</span> <span class="s1">'Welcome to WebSocket Server built on LaravelS'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 收到消息时触发</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">onMessage</span><span class="p">(</span><span class="nx">Server</span> <span class="nv">$server</span><span class="p">,</span> <span class="nx">Frame</span> <span class="nv">$frame</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// 调用 push 方法向客户端推送数据</span>
+        <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">push</span><span class="p">(</span><span class="nv">$frame</span><span class="o">-&gt;</span><span class="na">fd</span><span class="p">,</span> <span class="s2">"You say {"</span><span class="o">.</span><span class="nv">$frame</span><span class="o">-&gt;</span><span class="na">data</span> <span class="o">.</span><span class="s2">"}at "</span> <span class="o">.</span> <span class="nb">date</span><span class="p">(</span><span class="s1">'Y-m-d H:i:s'</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 关闭连接时触发</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">onClose</span><span class="p">(</span><span class="nx">Server</span> <span class="nv">$server</span><span class="p">,</span> <span class="nv">$fd</span><span class="p">,</span> <span class="nv">$reactorId</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">Log</span><span class="o">::</span><span class="na">info</span><span class="p">(</span><span class="s1">'WebSocket 连接关闭'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<hr />
+<h2 id="2-更改配置configlaravelsphp">2. 更改配置config/laravels.php</h2>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ...</span>
+<span class="s1">'websocket'</span>      <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'enable'</span>  <span class="o">=&gt;</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">// 看清楚，这里是true</span>
+    <span class="s1">'handler'</span> <span class="o">=&gt;</span> <span class="nx">\App\Services\WebSocketService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+<span class="p">],</span>
+<span class="s1">'swoole'</span>         <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="c1">//...</span>
+    <span class="c1">// dispatch_mode只能设置为2、4、5，https://wiki.swoole.com/wiki/page/277.html</span>
+    <span class="s1">'dispatch_mode'</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="c1">//...</span>
+<span class="p">],</span>
+<span class="c1">// ...</span>
+</code></pre></div></div>
+<hr />
+<h2 id="3-配置-nginx-支持-websocket">3. 配置 Nginx 支持 WebSocket</h2>
+<div class="language-nginx highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">map</span> <span class="nv">$http_upgrade</span> <span class="nv">$connection_upgrade</span> <span class="p">{</span>
+     <span class="kn">default</span> <span class="s">upgrade</span><span class="p">;</span>
+     <span class="kn">''</span>      <span class="s">close</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">upstream</span> <span class="s">swoole</span> <span class="p">{</span>
+     <span class="c1"># 通过 IP:Port 连接
+</span>     <span class="kn">server</span> <span class="nf">127.0.0.1</span><span class="p">:</span><span class="mi">5200</span> <span class="s">weight=5</span> <span class="s">max_fails=3</span> <span class="s">fail_timeout=30s</span><span class="p">;</span>
+     <span class="c1"># 通过 UnixSocket Stream 连接，小诀窍：将socket文件放在/dev/shm目录下，可获得更好的性能
+</span>     <span class="c1">#server unix:/xxxpath/laravel-s-test/storage/laravels.sock weight=5 max_fails=3 fail_timeout=30s;
+</span>     <span class="c1">#server 192.168.1.1:5200 weight=3 max_fails=3 fail_timeout=30s;
+</span>     <span class="c1">#server 192.168.1.2:5200 backup;
+</span>     <span class="kn">keepalive</span> <span class="mi">16</span><span class="p">;</span>
+ <span class="p">}</span>
+ <span class="k">server</span> <span class="p">{</span>
+     <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+     <span class="c1"># 别忘了绑Host哟
+</span>     <span class="kn">server_name</span> <span class="s">laravels.com</span><span class="p">;</span>
+     <span class="kn">root</span> <span class="n">/xxxpath/laravel-s-test/public</span><span class="p">;</span>
+     <span class="kn">access_log</span> <span class="n">/yyypath/log/nginx/</span><span class="nv">$server_name</span><span class="s">.access.log</span>  <span class="s">main</span><span class="p">;</span>
+     <span class="kn">autoindex</span> <span class="no">off</span><span class="p">;</span>
+     <span class="kn">index</span> <span class="s">index.html</span> <span class="s">index.htm</span><span class="p">;</span>
+     <span class="c1"># Nginx处理静态资源(建议开启gzip)，LaravelS处理动态资源。
+</span>     <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+         <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="s">@laravels</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="c1"># 当请求PHP文件时直接响应404，防止暴露public/*.php
+</span>     <span class="c1">#location ~* \.php$ {
+</span>     <span class="c1">#    return 404;
+</span>     <span class="c1">#}
+</span>     <span class="c1"># Http和WebSocket共存，Nginx通过location区分
+</span>     <span class="c1"># !!! WebSocket连接时路径为/ws
+</span>     <span class="c1"># Javascript: var ws = new WebSocket("ws://laravels.com/ws");
+</span>     <span class="kn">location</span> <span class="p">=</span><span class="n">/ws</span> <span class="p">{</span>
+         <span class="c1"># proxy_connect_timeout 60s;
+</span>         <span class="c1"># proxy_send_timeout 60s;
+</span>         <span class="c1"># proxy_read_timeout：如果60秒内被代理的服务器没有响应数据给Nginx，那么Nginx会关闭当前连接；同时，Swoole的心跳设置也会影响连接的关闭
+</span>         <span class="c1"># proxy_read_timeout 60s;
+</span>         <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Real-PORT</span> <span class="nv">$remote_port</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$http_host</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Scheme</span> <span class="nv">$scheme</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Protocol</span> <span class="nv">$server_protocol</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Name</span> <span class="nv">$server_name</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Addr</span> <span class="nv">$server_addr</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Port</span> <span class="nv">$server_port</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="nv">$connection_upgrade</span><span class="p">;</span>
+         <span class="kn">proxy_pass</span> <span class="s">http://swoole</span><span class="p">;</span>
+     <span class="p">}</span>
+     <span class="kn">location</span> <span class="s">@laravels</span> <span class="p">{</span>
+         <span class="c1"># proxy_connect_timeout 60s;
+</span>         <span class="c1"># proxy_send_timeout 60s;
+</span>         <span class="c1"># proxy_read_timeout 60s;
+</span>         <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="s">""</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Real-PORT</span> <span class="nv">$remote_port</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$http_host</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Scheme</span> <span class="nv">$scheme</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Protocol</span> <span class="nv">$server_protocol</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Name</span> <span class="nv">$server_name</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Addr</span> <span class="nv">$server_addr</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Server-Port</span> <span class="nv">$server_port</span><span class="p">;</span>
+         <span class="kn">proxy_pass</span> <span class="s">http://swoole</span><span class="p">;</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="4重载配置并重启laravels服务">4.重载配置并重启Laravels服务</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> php bin/laravels reload
+ php bin/laravels restart
+</code></pre></div></div>
+<blockquote>
+  <p>这里切记一定要重启 否则websocket无法连接上</p>
+</blockquote>
+
+<h2 id="5配置wss服务">5.配置wss服务</h2>
+
+<blockquote>
+  <p>这里只需要把你自己配置的域名升级为https即可 亲测有效</p>
+</blockquote>
+
+<p><img src="/static/img/websocket_test.png" alt="第三方测试如下" /></p>
+
+<h2 id="6配置测试页面">6.配置测试页面</h2>
+
+<h3 id="6-1-在webphp新增路由">6-1 在web.php新增路由</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Route</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'/ws'</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">view</span><span class="p">(</span><span class="s1">'ws'</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="6-2-在resourcesviews新增wsbladephp">6-2 在resources/views新增ws.blade.php</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Chat Client<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">nick</span> <span class="o">=</span> <span class="nx">prompt</span><span class="p">(</span><span class="s2">"Enter your nickname"</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+        <span class="nx">input</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+
+        <span class="c1">// 初始化客户端套接字并建立连接</span>
+        <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="s2">"wss://你的域名/ws"</span><span class="p">);</span>
+
+        <span class="c1">// 连接建立时触发</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Connection open ..."</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 接收到服务端推送时执行</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">"div"</span><span class="p">);</span>
+            <span class="nx">div</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">div</span><span class="p">,</span> <span class="nx">input</span><span class="p">);</span>
+            <span class="nx">input</span><span class="p">.</span><span class="nx">scrollIntoView</span><span class="p">();</span>
+        <span class="p">};</span>
+
+        <span class="c1">// 连接关闭时触发</span>
+        <span class="nx">socket</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Connection closed ..."</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nx">input</span><span class="p">.</span><span class="nx">onchange</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="nx">nick</span> <span class="o">+</span> <span class="s2">": "</span> <span class="o">+</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+            <span class="c1">// 将输入框变更信息通过 send 方法发送到服务器</span>
+            <span class="nx">socket</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+            <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"input"</span> <span class="na">style=</span><span class="s">"width: 100%;"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="6-3-在页面测试如下">6-3 在页面测试如下</h3>
+
+<blockquote>
+  <p>测试页面效果</p>
+</blockquote>
+
+<p><img src="/static/img/websocket_test2.png" alt="页面测试如下" /></p>
+
+<blockquote>
+  <p>握手过程</p>
+</blockquote>
+
+<p><img src="/static/img/websocket.jpg" alt="握手过程" /></p>
+
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#swoole"><span class="octicon octicon-tag"></span>&nbsp;swoole</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#laravel"><span class="octicon octicon-tag"></span>&nbsp;laravel</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#websocket"><span class="octicon octicon-tag"></span>&nbsp;websocket</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/swoole/%E5%9F%BA%E4%BA%8E-Swoole-%E5%9C%A8-Laravel-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/">基于 Swoole 在 Laravel 中实现异步任务队列</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/swoole/%E5%9F%BA%E4%BA%8Eswoole%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%80%A7%E8%83%BDHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8/">基于swoole实现HTTP高性能服务器</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/laravel%E9%9B%86%E6%88%90%E5%BE%AE%E4%BF%A1%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/">laravel集成微信第三方登录</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/laravel5-5-%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9C/">laravel5.5 动态切换多语言操作</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

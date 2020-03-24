@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>laravel集成微信第三方登录</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="laravel集成微信第三方登录, laravel, laravel,微信登录, renzhifan" />
+    <meta name="description" content="laravel集成微信第三方登录, laravel, laravel,微信登录, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/laravel/laravel%E9%9B%86%E6%88%90%E5%BE%AE%E4%BF%A1%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>laravel集成微信第三方登录</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Oct 28, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#laravel"><span class="octicon octicon-list-unordered"></span>&nbsp;laravel</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#laravel"><span class="octicon octicon-tag"></span>&nbsp;laravel</a>
+                    
+                    <a class="word-keep" href="http://localhost:4000/tags/#微信登录"><span class="octicon octicon-tag"></span>&nbsp;微信登录</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#1laravel-socialite简介" id="markdown-toc-1laravel-socialite简介">1、Laravel Socialite简介</a></li>
+  <li><a href="#2安装扩展包" id="markdown-toc-2安装扩展包">2、安装扩展包</a>    <ul>
+      <li><a href="#2-1安装相关依赖" id="markdown-toc-2-1安装相关依赖">2-1安装相关依赖</a></li>
+      <li><a href="#2-2安装weixin-web" id="markdown-toc-2-2安装weixin-web">2-2安装weixin-web</a></li>
+    </ul>
+  </li>
+  <li><a href="#3相关配置" id="markdown-toc-3相关配置">3、相关配置</a>    <ul>
+      <li><a href="#3-1-设置appconfigphp" id="markdown-toc-3-1-设置appconfigphp">3-1 设置app/config.php</a></li>
+      <li><a href="#3-2-配置configservicesphp" id="markdown-toc-3-2-配置configservicesphp">3-2 配置config/services.php</a></li>
+      <li><a href="#3-3-设置appproviderseventserviceproviderphp" id="markdown-toc-3-3-设置appproviderseventserviceproviderphp">3-3 设置app/Providers/EventServiceProvider.php</a></li>
+      <li><a href="#3-4-添加路由" id="markdown-toc-3-4-添加路由">3-4 添加路由</a></li>
+      <li><a href="#3-5-编写weixincontroller" id="markdown-toc-3-5-编写weixincontroller">3-5 编写WeixinController</a></li>
+    </ul>
+  </li>
+  <li><a href="#常见错误" id="markdown-toc-常见错误">常见错误</a></li>
+</ul>
+
+<hr />
+
+<h2 id="1laravel-socialite简介">1、Laravel Socialite简介</h2>
+<blockquote>
+  <p>除了传统的基于表单的登录认证外，Laravel 还可以通过 Laravel Socialite 提供 OAuth 认证，目前支持的认证驱动包括 Facebook、Twitter、Google、LinkedIn、GitHub 和 Bitbucket。
+官方文档</p>
+</blockquote>
+
+<h2 id="2安装扩展包">2、安装扩展包</h2>
+
+<h3 id="2-1安装相关依赖">2-1安装相关依赖</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require laravel/socialite
+</code></pre></div></div>
+
+<h3 id="2-2安装weixin-web">2-2安装weixin-web</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer require socialiteproviders/weixin-web
+</code></pre></div></div>
+
+<blockquote>
+  <p>注意网站实现微信登录需要的依赖包为socialiteproviders/weixin-web，如果是手机端App那么可以用socialiteproviders/weixin。</p>
+</blockquote>
+
+<h2 id="3相关配置">3、相关配置</h2>
+
+<h3 id="3-1-设置appconfigphp">3-1 设置app/config.php</h3>
+<blockquote>
+  <p>添加providers：</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="nx">\SocialiteProviders\Manager\ServiceProvider</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+<span class="p">],</span>
+</code></pre></div></div>
+<blockquote>
+  <p>添加aliases：</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'aliases'</span> <span class="o">=&gt;</span> <span class="p">[</span> 
+    <span class="s1">'Socialite'</span> <span class="o">=&gt;</span> <span class="nx">Laravel\Socialite\Facades\Socialite</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> 
+<span class="p">],</span>
+</code></pre></div></div>
+<h3 id="3-2-配置configservicesphp">3-2 配置config/services.php</h3>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">...</span>
+    <span class="s1">'weixinweb'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">'client_id'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'WEIXINWEB_KEY'</span><span class="p">),</span>
+    <span class="s1">'client_secret'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'WEIXINWEB_SECRET'</span><span class="p">),</span>
+    <span class="s1">'redirect'</span> <span class="o">=&gt;</span> <span class="nx">env</span><span class="p">(</span><span class="s1">'WEIXINWEB_REDIRECT_URI'</span><span class="p">)</span>
+<span class="p">],</span>
+</code></pre></div></div>
+<h3 id="3-3-设置appproviderseventserviceproviderphp">3-3 设置app/Providers/EventServiceProvider.php</h3>
+<blockquote>
+  <p>添加事件监听</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">protected</span> <span class="nv">$listen</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nx">Registered</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="nx">SendEmailVerificationNotification</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+
+    <span class="p">],</span>
+    <span class="nx">\SocialiteProviders\Manager\SocialiteWasCalled</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'SocialiteProviders\\WeixinWeb\\WeixinWebExtendSocialite@handle'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<h3 id="3-4-添加路由">3-4 添加路由</h3>
+<blockquote>
+  <p>这里由于我用的是dinggo Api 所有单独加了web中间件</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$api</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'auth/weixin'</span><span class="p">,</span> <span class="s1">'AuthorizationsController@redirectToProvider'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">middleware</span><span class="p">(</span><span class="s1">'web'</span><span class="p">);</span>
+<span class="nv">$api</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'auth/weixin/callback'</span><span class="p">,</span><span class="s1">'AuthorizationsController@handleProviderCallback'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">middleware</span><span class="p">(</span><span class="s1">'web'</span><span class="p">);</span>
+</code></pre></div></div>
+<h3 id="3-5-编写weixincontroller">3-5 编写WeixinController</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">namespace</span> <span class="nx">App\Http\Controllers\Auto\ThirdLogin</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Socialite</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Illuminate\Http\Request</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">App\Http\Controllers\Controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">SocialiteProviders\WeixinWeb\Provider</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">WeixinController</span> <span class="k">extends</span> <span class="nx">Controller</span><span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">redirectToProvider</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>   
+        <span class="k">return</span> <span class="nx">Socialite</span><span class="o">::</span><span class="na">with</span><span class="p">(</span><span class="s1">'weixinweb'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">handleProviderCallback</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$user_data</span> <span class="o">=</span> <span class="nx">Socialite</span><span class="o">::</span><span class="na">with</span><span class="p">(</span><span class="s1">'weixinweb'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">stateless</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">();</span>
+        <span class="nx">dd</span><span class="p">(</span><span class="nv">$user_data</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>访问/api/auth/weixin，获得返回数据。</p>
+</blockquote>
+
+<h2 id="常见错误">常见错误</h2>
+
+<p>１、微信授权回调域不符(redirect_uri不符)，参见下面规范：</p>
+
+<p><img src="/static/img/laravel-wechat.png" alt="wechat" />​</p>
+
+<p>2、执行过程中出现一下错误：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">exception</span> <span class="s1">'Laravel\Socialite\Two\InvalidStateException'</span> 
+<span class="nx">in</span> <span class="o">/</span><span class="nx">example</span><span class="o">/</span><span class="nx">vendor</span><span class="o">/</span><span class="nx">laravel</span><span class="o">/</span><span class="nx">socialite</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">Two</span><span class="o">/</span><span class="nx">AbstractProvider</span><span class="o">.</span><span class="nx">php</span><span class="o">:</span><span class="mi">161</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>解决：
+通过stateless()方法禁止会话状态验证
+Socialite::driver(‘weixinweb’)-&gt;stateless()-&gt;user()</p>
+</blockquote>
+
+<p>3、env配置如下
+#weixinweb</p>
+<pre><code class="language-dotenv">WEIXINWEB_KEY=********
+WEIXINWEB_SECRET=*******************
+WEIXINWEB_REDIRECT_URI=https://服务端域名/api/auth/weixin/callback
+</code></pre>
+
+<hr />
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#laravel"><span class="octicon octicon-tag"></span>&nbsp;laravel</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#微信登录"><span class="octicon octicon-tag"></span>&nbsp;微信登录</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/swoole/%E5%9F%BA%E4%BA%8E-Swoole-%E5%9C%A8-Laravel-%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/">基于 Swoole 在 Laravel 中实现异步任务队列</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/swoole/%E5%9C%A8-Laravel-%E4%B8%AD%E9%9B%86%E6%88%90-Swoole-%E5%AE%9E%E7%8E%B0-WebSocket-%E6%9C%8D%E5%8A%A1%E5%99%A8/">在 Laravel 中集成 Swoole 实现 WebSocket 服务器</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/%E8%AE%A9Laravel%E5%BC%80%E5%8F%91Api%E6%9B%B4%E5%BE%97%E5%BF%83%E5%BA%94%E6%89%8B/">让Laravel开发Api更得心应手</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/laravel/laravel5-5-%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%A4%9A%E8%AF%AD%E8%A8%80%E6%93%8D%E4%BD%9C/">laravel5.5 动态切换多语言操作</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>

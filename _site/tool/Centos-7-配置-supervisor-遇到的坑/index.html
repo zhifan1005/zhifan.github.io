@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Centos-7-配置-supervisor-遇到的坑</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="Centos-7-配置-supervisor-遇到的坑, Tool, supervisor, renzhifan" />
+    <meta name="description" content="Centos-7-配置-supervisor-遇到的坑, Tool, supervisor, " />
+    <meta name="theme-color" content="#2CA6CB"/>
+    <link rel="shortcut icon" type="image/x-icon" media="screen" href="http://localhost:4000/favicon.ico" />
+    <link rel="canonical" href="http://localhost:4000/tool/Centos-7-%E9%85%8D%E7%BD%AE-supervisor-%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" />
+    <link rel="alternate" type="application/rss+xml" title="renzhifan" href="http://localhost:4000/feed.xml"  />
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/octicons/3.5.0/octicons.min.css" >
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/highlight.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/gitment.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:4000/static/css/post.css" />
+    
+
+</head>
+
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-tiffany rectangle" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://localhost:4000/">renzhifan</a>
+                    <p class="navbar-text"></p>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li>
+                        <a href="http://localhost:4000/" class="word-keep"><span class="octicon octicon-book"></span></span>&nbsp;&nbsp;Blog</a>
+                        </li>
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/archive/" class="word-keep"><span class="octicon octicon-repo"></span>&nbsp;&nbsp;Archive</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/category/" class="word-keep"><span class="octicon octicon-list-unordered"></span>&nbsp;&nbsp;Category</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="http://localhost:4000/tags/" class="word-keep"><span class="octicon octicon-tag"></span>&nbsp;&nbsp;Tag</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li><a href="#stq=" class="search-button"><span class="octicon octicon-search"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+    <div class="content col-lg-9">
+        <div class="sheet post">
+          <header>
+            <h2>Centos-7-配置-supervisor-遇到的坑</h2>
+            <p class="post-meta">
+                <span class="octicon octicon-clock"></span> Oct 28, 2019
+            </p>
+            <p class="post-tag">
+                <span><a href="http://localhost:4000/category/#Tool"><span class="octicon octicon-list-unordered"></span>&nbsp;Tool</a></span>
+                <span>
+                    <a class="word-keep" href="http://localhost:4000/tags/#supervisor"><span class="octicon octicon-tag"></span>&nbsp;supervisor</a>
+                    
+                </span>
+            </p>
+          </header>
+          <hr class="boundary">
+          <article>
+            <ul id="markdown-toc">
+  <li><a href="#1安装supervisor" id="markdown-toc-1安装supervisor">1、安装supervisor</a></li>
+  <li><a href="#2配置" id="markdown-toc-2配置">2、配置</a>    <ul>
+      <li><a href="#1先要确认是否已经启动过了ps--ef--grep-supervisord" id="markdown-toc-1先要确认是否已经启动过了ps--ef--grep-supervisord">1、先要确认是否已经启动过了：ps -ef | grep supervisord</a></li>
+      <li><a href="#2如果有的话先kill掉" id="markdown-toc-2如果有的话先kill掉">2、如果有的话先kill掉</a></li>
+      <li><a href="#3运行下面命令" id="markdown-toc-3运行下面命令">3、运行下面命令：</a></li>
+      <li><a href="#4再执行如下命令" id="markdown-toc-4再执行如下命令">4、再执行如下命令</a></li>
+    </ul>
+  </li>
+  <li><a href="#3启动" id="markdown-toc-3启动">3、启动</a></li>
+  <li><a href="#4总结" id="markdown-toc-4总结">4、总结</a></li>
+  <li><a href="#参考文章" id="markdown-toc-参考文章">参考文章</a></li>
+</ul>
+
+<hr />
+<p>环境 centos7.5</p>
+<h2 id="1安装supervisor">1、安装supervisor</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>supervisor
+执行完之后 在/etc 目录中会生成 supervisord.conf
+</code></pre></div></div>
+<h2 id="2配置">2、配置</h2>
+<p><img src="/static/img/supervisor.png" alt="supervisor" /></p>
+
+<blockquote>
+  <p>如上图所示   这里需要在 /etc/supervisord.d/  目录中创建你需要的配置文件</p>
+</blockquote>
+
+<blockquote>
+  <p>我创建如下</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>program:laravel-worker]
+<span class="nv">process_name</span><span class="o">=</span>%<span class="o">(</span>program_name<span class="o">)</span>s_%<span class="o">(</span>process_num<span class="o">)</span>02d
+<span class="nb">command</span><span class="o">=</span>php /data/wwwroot/default/coin/artisan queue:work  <span class="nt">--sleep</span><span class="o">=</span>3 <span class="nt">--tries</span><span class="o">=</span>3
+<span class="nv">autostart</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">autorestart</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">user</span><span class="o">=</span>root
+<span class="nv">numprocs</span><span class="o">=</span>8
+<span class="nv">redirect_stderr</span><span class="o">=</span><span class="nb">true
+</span><span class="nv">stdout_logfile</span><span class="o">=</span>/data/wwwroot/default/coin/storage/logs/worker.log
+</code></pre></div></div>
+
+<blockquote>
+  <p>配置文件创建完成后
+执行</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">[</span>root@VM_0_7_centos etc]# supervisorctl reload
+error: &lt;class <span class="s1">'socket.error'</span><span class="o">&gt;</span>, <span class="o">[</span>Errno 111] Connection refused: file: /usr/lib64/python2.7/socket.py line: 224
+</code></pre></div></div>
+<blockquote>
+  <p>解决办法： 
+这个可能有多种原因，可能是已经启动过了也可能是没权限，解决步骤如下：</p>
+</blockquote>
+
+<h3 id="1先要确认是否已经启动过了ps--ef--grep-supervisord">1、先要确认是否已经启动过了：ps -ef | grep supervisord</h3>
+<h3 id="2如果有的话先kill掉">2、如果有的话先kill掉</h3>
+<h3 id="3运行下面命令">3、运行下面命令：</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch</span> /var/run/supervisor.sock 
+<span class="nb">chmod </span>777 /var/run/supervisor.sock 
+</code></pre></div></div>
+
+<h3 id="4再执行如下命令">4、再执行如下命令</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@VM_0_7_centos etc]# supervisord <span class="nt">-c</span> supervisord.conf 
+Unlinking stale socket /var/run/supervisor/supervisor.sock
+<span class="o">[</span>root@VM_0_7_centos etc]# <span class="nb">unlink</span> /var/run/supervisor/supervisor.sock
+<span class="o">[</span>root@VM_0_7_centos etc]# ps <span class="nt">-ef</span> | <span class="nb">grep </span>supervisor
+root     13704     1  1 14:08 ?        00:00:03 /usr/bin/python /usr/bin/supervisord <span class="nt">-c</span> supervisord.conf
+root     25913 32596  0 14:14 pts/0    00:00:00 <span class="nb">grep</span> <span class="nt">--color</span> supervisor
+root     32227     1  0 11:54 ?        00:00:01 /usr/bin/python /usr/bin/supervisord
+
+</code></pre></div></div>
+<h2 id="3启动">3、启动</h2>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>supervisord <span class="nt">-c</span> supervisord.conf
+</code></pre></div></div>
+
+<blockquote>
+  <p>我这启动时报错如下</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: Another program is already listening on a port that one of our HTTP servers is configured to use.  Shut this program down first before starting supervisord.
+For <span class="nb">help</span>, use /usr/bin/supervisord <span class="nt">-h</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>解决办法:</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@VM_0_7_centos etc]# supervisord <span class="nt">-c</span> supervisord.conf 
+Error: Another program is already listening on a port that one of our HTTP servers is configured to use.  Shut this program down first before starting supervisord.
+For <span class="nb">help</span>, use /usr/bin/supervisord <span class="nt">-h</span>
+<span class="o">[</span>root@VM_0_7_centos etc]# ps <span class="nt">-ef</span> | <span class="nb">grep </span>supervisor
+root     10276 32596  0 13:46 pts/0    00:00:00 <span class="nb">grep</span> <span class="nt">--color</span> supervisor
+root     32227     1  0 11:54 ?        00:00:00 /usr/bin/python /usr/bin/supervisord
+<span class="o">[</span>root@VM_0_7_centos etc]# find / <span class="nt">-name</span> supervisor.sock
+/run/supervisor/supervisor.sock
+<span class="o">[</span>root@VM_0_7_centos etc]# <span class="nb">unlink</span> /name/supervisor.sock
+<span class="nb">unlink</span>: cannot <span class="nb">unlink</span> ‘/name/supervisor.sock’: No such file or directory
+<span class="o">[</span>root@VM_0_7_centos etc]# <span class="nb">unlink</span> /run/supervisor/supervisor.sock
+<span class="o">[</span>root@VM_0_7_centos etc]# supervisord <span class="nt">-c</span> supervisord.conf 
+<span class="o">[</span>root@VM_0_7_centos etc]# ps <span class="nt">-ef</span> | <span class="nb">grep </span>supervisor
+root     10609     1  1 13:49 ?        00:00:00 /usr/bin/python /usr/bin/supervisord <span class="nt">-c</span> supervisord.conf
+root     12309 32596  0 13:49 pts/0    00:00:00 <span class="nb">grep</span> <span class="nt">--color</span> supervisor
+root     32227     1  0 11:54 ?        00:00:00 /usr/bin/python /usr/bin/supervisord
+
+</code></pre></div></div>
+<h2 id="4总结">4、总结</h2>
+
+<blockquote>
+  <p>常用命令</p>
+</blockquote>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#启动守护进程：</span>
+supervisord <span class="nt">-c</span> /etc/supervisor/supervisord.conf
+<span class="c">#重载配置：</span>
+supervisorctl reload
+
+<span class="nb">sudo </span>supervisorctl reread
+<span class="nb">sudo </span>supervisorctl update
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>报错信息： 
+Error: .ini file does not include supervisorctl section
+解决办法： 
+一个权限问题，步骤： 
+1. 先确保supervisord.conf中有[supervisord]，[supervisorctl]有这两个基本模块，还有[program:XXX]自己程序的配置（可以在supervisord.conf也可以在/etc/supervisor/*.ini中） 
+2. 最关键的两个命令：chmod +x /usr/bin/supervisord 
+chmod +x /usr/bin/supervisorctl 
+chmod +x /etc/supervisord.conf主要是把把相关文件都授权了 
+3. 把supervisord杀掉后再次启动supervisord
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Exited too quickly (process log may have details)
+
+解决办法： 
+1. 先确认[program:XXX]中自己的程序的command=&lt;启动命令&gt;和 directory=&lt;运行命令的路径&gt;没有问题，python是不是用的自己要的环境的python（比如虚拟环境的），log文件的文件夹是不是已经创建（没创建的话supervisor没权限生成log文件），以及改log文件是不是授权给所有用户了（可参考前面的解决办法chmod +x aaaaa.log） 
+2. 确保用上面的配置中的command在指定路径可以直接运行不会报错，这时候一般就不会有什么问题了。这时候tail你自己的log文件一般就能看到log信息，启动失败报错的信息也会在你的log文件中，照着解决后supervisorctl reload就好了。 
+3. 如果上面的命令确保可以跑，但还是没法正常运行，也看不到自己程序的报错（不然你就能根据报错解决问题了），那么恭喜，你遇到了跟我一样的情况。我的解决办法很诡异，尝试把[program:XXX]中的名字换成了一个跟启动命令不一样的另一个名字（不要太短），reload之后居然就可以跑了
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>还有一个比较坑的  如果你是直接把laravel官方文档中的supervisor配置拿过来的话 一定记得改驱动如下图所示
+</code></pre></div></div>
+<p><img src="/static/img/supervisor2.png" alt="supervisor" /></p>
+
+<blockquote>
+  <p>我就是直接复制过来的 没改驱动  结果日志一直报错 如下</p>
+</blockquote>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">13</span> <span class="mi">14</span><span class="o">:</span><span class="mi">11</span><span class="o">:</span><span class="mo">06</span><span class="p">]</span> <span class="nx">local</span><span class="o">.</span><span class="nx">ERROR</span><span class="o">:</span> <span class="nx">Class</span> <span class="s1">'Aws\Sqs\SqsClient'</span> <span class="k">not</span> <span class="nx">found</span> <span class="p">{</span><span class="s2">"exception"</span><span class="o">:</span><span class="s2">"[object] (Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Debug</span><span class="se">\\</span><span class="s2">Exception</span><span class="se">\\</span><span class="s2">FatalThrowableError(code: 0): Class 'Aws</span><span class="se">\\</span><span class="s2">Sqs</span><span class="se">\\</span><span class="s2">SqsClient' not found at /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/Connectors/SqsConnector.php:26)
+[stacktrace]
+#0 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/QueueManager.php(157): Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">Connectors</span><span class="se">\\</span><span class="s2">SqsConnector-&gt;connect(Array)
+#1 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/QueueManager.php(138): Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">QueueManager-&gt;resolve('sqs')
+#2 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(105): Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">QueueManager-&gt;connection('sqs')
+#3 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(101): Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">Worker-&gt;daemon('sqs', 'your-queue-name', Object(Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">WorkerOptions))
+#4 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(85): Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">WorkCommand-&gt;runWorker('sqs', 'your-queue-name')
+#5 [internal function]: Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">WorkCommand-&gt;handle()
+#6 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(29): call_user_func_array(Array, Array)
+#7 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(87): Illuminate</span><span class="se">\\</span><span class="s2">Container</span><span class="se">\\</span><span class="s2">BoundMethod::Illuminate</span><span class="se">\\</span><span class="s2">Container</span><span class="se">\\</span><span class="si">{</span><span class="nv">closure</span><span class="si">}</span><span class="s2">()
+#8 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(31): Illuminate</span><span class="se">\\</span><span class="s2">Container</span><span class="se">\\</span><span class="s2">BoundMethod::callBoundMethod(Object(Illuminate</span><span class="se">\\</span><span class="s2">Foundation</span><span class="se">\\</span><span class="s2">Application), Array, Object(Closure))
+#9 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Container/Container.php(549): Illuminate</span><span class="se">\\</span><span class="s2">Container</span><span class="se">\\</span><span class="s2">BoundMethod::call(Object(Illuminate</span><span class="se">\\</span><span class="s2">Foundation</span><span class="se">\\</span><span class="s2">Application), Array, Array, NULL)
+#10 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Console/Command.php(183): Illuminate</span><span class="se">\\</span><span class="s2">Container</span><span class="se">\\</span><span class="s2">Container-&gt;call(Array)
+#11 /data/wwwroot/default/coin/vendor/symfony/console/Command/Command.php(255): Illuminate</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Command-&gt;execute(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Illuminate</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">OutputStyle))
+#12 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Console/Command.php(170): Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Command</span><span class="se">\\</span><span class="s2">Command-&gt;run(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Illuminate</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">OutputStyle))
+#13 /data/wwwroot/default/coin/vendor/symfony/console/Application.php(953): Illuminate</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Command-&gt;run(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#14 /data/wwwroot/default/coin/vendor/symfony/console/Application.php(248): Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Application-&gt;doRunCommand(Object(Illuminate</span><span class="se">\\</span><span class="s2">Queue</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">WorkCommand), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#15 /data/wwwroot/default/coin/vendor/symfony/console/Application.php(148): Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Application-&gt;doRun(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#16 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Console/Application.php(88): Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Application-&gt;run(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#17 /data/wwwroot/default/coin/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(121): Illuminate</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Application-&gt;run(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#18 /data/wwwroot/default/coin/artisan(37): Illuminate</span><span class="se">\\</span><span class="s2">Foundation</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Kernel-&gt;handle(Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Input</span><span class="se">\\</span><span class="s2">ArgvInput), Object(Symfony</span><span class="se">\\</span><span class="s2">Component</span><span class="se">\\</span><span class="s2">Console</span><span class="se">\\</span><span class="s2">Output</span><span class="se">\\</span><span class="s2">ConsoleOutput))
+#19 </span><span class="si">{</span><span class="nv">main</span><span class="si">}</span><span class="s2">
+
+</span></code></pre></div></div>
+
+<h2 id="参考文章">参考文章</h2>
+<p><a href="https://blog.csdn.net/kkevinyang/article/details/80539940">supervisor常见报错</a></p>
+
+<hr />
+
+          </article>
+          <hr class="boundary">
+          <div id="post-share" class="bdsharebuttonbox">
+              <a href="#" class="bds_more" data-cmd="more"></a>
+              <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+              <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+              <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+              <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+              <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+          </div>
+        </div>
+        <div class="pad-min"></div>
+<!--        <div id="post-comment" class="sheet post hidden">-->
+<!--            <div id="disqus_thread"></div>-->
+<!--        </div>-->
+    </div>
+    <div class="content-navigation col-lg-3">
+      <div class="shadow-bottom-center" >
+        <div class="content-navigation-toc">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Toc
+            </div>
+            <div class="content-navigation-list toc"></div>
+        </div>
+        <div class="content-navigation-tag">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Tags
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+                    <li>
+                        <a href="http://localhost:4000/tags#supervisor"><span class="octicon octicon-tag"></span>&nbsp;supervisor</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="content-navigation-related">
+            <div class="content-navigation-header">
+                <span class="octicon octicon-list-unordered"></span>&nbsp;Related
+            </div>
+            <div class="content-navigation-list">
+                <ul>
+                    
+
+                    
+
+                    
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/%E7%BD%91%E9%A1%B5%E8%B0%83%E7%94%A8%E5%BE%AE%E4%BF%A1Jssdk%E5%AE%9E%E7%8E%B0%E6%89%AB%E4%B8%80%E6%89%AB%E5%8A%9F%E8%83%BD/">网页调用微信Jssdk实现扫一扫功能</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/ubuntu-%E5%AE%89%E8%A3%85-elasticsearch%E5%92%8Cik-analyzer%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D/">ubuntu 安装 elasticsearch和ik-analyzer中文分词</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/tool/%E6%94%B6%E8%97%8F%E7%9A%84%E5%A5%BD%E6%96%87%E9%93%BE%E6%8E%A5(%E9%95%BF%E6%9C%9F%E6%9B%B4%E6%96%B0)/">收集的好文链接(长期更新)</a>
+                            </li>
+                        
+                            <li>
+                                <a href="http://localhost:4000/swoole/%E5%9F%BA%E4%BA%8Eswoole%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%80%A7%E8%83%BDHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8/">基于swoole实现HTTP高性能服务器</a>
+                            </li>
+                        
+                    
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="page-scrollTop" data-toggle="tooltip" data-placement="top" title="Top">
+        <a href="javascript:void(0);">
+            <div class="arrow"></div>
+            <div class="stick"></div>
+        </a>
+    </div>
+</div>
+
+    <footer  class="footnote footnote-tiffany">
+        <div class="container">
+                <a class="foot-item" href="mailto:zhifan6797@163.com" target="_blank"><span class="octicon octicon-mail"></span></a>
+                <a class="foot-item" href="https://github.com/renzhifan" target="_blank"><span class="octicon octicon-mark-github"></span></a>
+                <a class="foot-item" href="http://localhost:4000/feed.xml" target="_blank"><span class="octicon octicon-rss"></span></a>
+                <a class="foot-item" href="http://localhost:4000/link/"><span class="octicon octicon-link-external"></span></a>
+                &nbsp;
+                <a href="https://github.com/renzhifan"><span class="word-keep">&copy; renzhifan</span></a>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/script.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/gitment.js"></script>
+    <script type="text/javascript" src="http://localhost:4000/static/js/post.js"></script>
+    
+
+
+</body>
+</html>
